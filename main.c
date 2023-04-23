@@ -1,20 +1,32 @@
 #include <stdio.h>
+#include <stdlib.h>
+
 #define ROWS_NUM 6
 #define COLS_NUM 7
+#define AC_WHITE "\x1b[37m"
+#define AC_RED "\x1b[31m"
+#define AC_GREEN "\x1b[32m"
+#define AC_YELLOW "\x1b[33m"
 
-enum Position_state
+typedef enum Boolean
+{
+    FALSE,
+    TRUE
+} bool_t;
+
+typedef enum Position_state
 {
     EMPTY,
     PLAYER1_SLOT,
     PLAYER2_SLOT
-};
+} position_state_t;
 
 enum Game_state
 {
-    START,
-    PLAYER1_TURN,
-    PLAYER2_TURN,
-    FINISHED
+    GAME_START,
+    GAME_PLAYER1_TURN,
+    GAME_PLAYER2_TURN,
+    GAME_FINISHED
 } game_state;
 
 enum Cols_name
@@ -25,15 +37,27 @@ enum Cols_name
     D,
     E,
     F,
-    G
+    G,
+    COL_NOT_VALID = -1
 };
 
-void printGameBoard(enum Position_state board[ROWS_NUM][COLS_NUM]);
-// void insertToken(enum Position_state state, int board[ROWS_NUM][COLS_NUM]);
+void printGameBoard(position_state_t board[ROWS_NUM][COLS_NUM]);
+/**
+ * insert new position state in certian column, and row number is managed by gravity [first empty row in this column], the row_num state from which row start searching for correct position in recursive
+ * return TRUE if inserted successfully
+ */
+bool_t insertToken(position_state_t board[ROWS_NUM][COLS_NUM], position_state_t state, enum Cols_name col_num, size_t row_num);
+
+/**
+ * return Cols_name or -1 if not valid input
+ */
+enum Cols_name parseInput(char c);
+bool_t check_for_winner(position_state_t board[ROWS_NUM][COLS_NUM], position_state_t piece);
 
 int main()
 {
-    enum Position_state board[ROWS_NUM][COLS_NUM];
+    position_state_t board[ROWS_NUM][COLS_NUM];
+    char input;
     // init the board
     int i, j;
     for (i = 0; i < 6; i++)
@@ -43,11 +67,51 @@ int main()
             board[i][j] = EMPTY;
         }
     }
-    printGameBoard(board);
+    game_state = GAME_START;
+
+    // game loop
+    while (game_state != GAME_FINISHED)
+    {
+        // manage turn between players?
+        if (game_state == GAME_START)
+        {
+            game_state = GAME_PLAYER1_TURN;
+        }
+        else if (game_state == GAME_PLAYER1_TURN)
+        {
+            game_state = GAME_PLAYER2_TURN;
+        }
+        else if (game_state == GAME_PLAYER2_TURN)
+        {
+            game_state = GAME_PLAYER1_TURN;
+        }
+        else
+        {
+            game_state = GAME_FINISHED;
+        }
+
+        // print
+        printGameBoard(board);
+
+        // take input based on the turn
+        if (game_state == GAME_PLAYER1_TURN)
+        {
+            puts("PLAYER 1: ");
+            input = getchar();
+        }
+        else if (game_state == GAME_PLAYER2_TURN)
+        {
+            puts("PLAYER 2: ");
+            input = getchar();
+        }
+
+        // check for win, if win set game state to finish
+    }
+
     return 0;
 }
 
-void printGameBoard(enum Position_state board[ROWS_NUM][COLS_NUM])
+void printGameBoard(position_state_t board[ROWS_NUM][COLS_NUM])
 {
     int i, j;
     printf("\tA |\tB |\tC |\tD |\tE |\tF |\tG |");
@@ -55,22 +119,138 @@ void printGameBoard(enum Position_state board[ROWS_NUM][COLS_NUM])
 
     for (i = 0; i < ROWS_NUM; i++)
     {
-        printf("%i |", i + 1);
+        printf("%s%i |", AC_WHITE, i + 1);
         for (j = 0; j < COLS_NUM; j++)
         {
             if (board[i][j] == EMPTY)
             {
-                printf("\tZ |");
+                printf("%s\tZ |", AC_YELLOW);
             }
             else if (board[i][j] == PLAYER1_SLOT)
             {
-                printf("\tX |");
+                printf("%s\tX |", AC_GREEN);
             }
             else
             {
-                printf("\tY |");
+                printf("%s\tY |", AC_RED);
             }
         }
         printf("\n----------------------------------------------------------\n");
     }
+    printf("\n");
+}
+
+bool_t insertToken(position_state_t board[ROWS_NUM][COLS_NUM], position_state_t state, enum Cols_name col_num, size_t row_num)
+{
+    // don't go out of scope
+    if (col_num >= COLS_NUM || col_num < 0 || row_num >= ROWS_NUM || row_num < 0)
+    {
+        return FALSE;
+    }
+    // can't insert in full column
+    // go down the rows until you find empty row and the one before it is full or you reached the floor
+
+    // reached non empty field means no free space in this column
+    if (board[row_num][col_num] != EMPTY)
+    {
+        return FALSE;
+    }
+
+    // empty then non-empty or ground is the one satisfy the gravity
+    if (board[row_num][col_num] == EMPTY && (board[row_num + 1][col_num] != EMPTY || row_num == ROWS_NUM - 1))
+    {
+        board[row_num][col_num] = state;
+        return TRUE;
+    }
+    else
+    {
+        return insertToken(board, state, col_num, row_num + 1);
+    }
+    return FALSE;
+}
+
+enum Cols_name parseInput(char c)
+{
+    if (c == 'a' || c == 'A')
+    {
+        return A;
+    }
+    if (c == 'b' || c == 'B')
+    {
+        return B;
+    }
+    if (c == 'c' || c == 'C')
+    {
+        return C;
+    }
+    if (c == 'd' || c == 'D')
+    {
+        return D;
+    }
+    if (c == 'e' || c == 'E')
+    {
+        return E;
+    }
+    if (c == 'f' || c == 'F')
+    {
+        return F;
+    }
+    if (c == 'g' || c == 'G')
+    {
+        return G;
+    }
+    return COL_NOT_VALID;
+}
+
+bool_t check_for_winner(position_state_t board[ROWS_NUM][COLS_NUM], position_state_t piece)
+{
+    // Check horizontal locations for win
+    for (int c = 0; c < COLS_NUM - 3; c++)
+    {
+        for (int r = 0; r < ROWS_NUM; r++)
+        {
+            if (board[r][c] == piece && board[r][c + 1] == piece && board[r][c + 2] == piece && board[r][c + 3] == piece)
+            {
+                return TRUE;
+            }
+        }
+    }
+
+    // Check vertical locations for win
+    for (int c = 0; c < COLS_NUM; c++)
+    {
+        for (int r = 0; r < ROWS_NUM - 3; r++)
+        {
+            if (board[r][c] == piece && board[r + 1][c] == piece && board[r + 2][c] == piece && board[r + 3][c] == piece)
+            {
+                return TRUE;
+            }
+        }
+    }
+
+    // Check positively sloped diagonals
+    for (int c = 0; c < COLS_NUM - 3; c++)
+    {
+        for (int r = 0; r < ROWS_NUM - 3; r++)
+        {
+            if (board[r][c] == piece && board[r + 1][c + 1] == piece && board[r + 2][c + 2] == piece && board[r + 3][c + 3] == piece)
+            {
+                return TRUE;
+            }
+        }
+    }
+
+    // Check negatively sloped diagonals
+    for (int c = 0; c < COLS_NUM - 3; c++)
+    {
+        for (int r = 3; r < ROWS_NUM; r++)
+        {
+            if (board[r][c] == piece && board[r - 1][c + 1] == piece && board[r - 2][c + 2] == piece && board[r - 3][c + 3] == piece)
+            {
+                return TRUE;
+            }
+        }
+    }
+
+    return FALSE;
 }
