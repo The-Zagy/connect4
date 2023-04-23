@@ -58,6 +58,7 @@ int main()
 {
     position_state_t board[ROWS_NUM][COLS_NUM];
     char input;
+    enum Cols_name parsed_input;
     // init the board
     int i, j;
     for (i = 0; i < 6; i++)
@@ -91,21 +92,54 @@ int main()
         }
 
         // print
+        system("clear");
+        system("cls");
         printGameBoard(board);
 
-        // take input based on the turn
-        if (game_state == GAME_PLAYER1_TURN)
+        // try to take input until it's valid one
+        while (1)
         {
-            puts("PLAYER 1: ");
-            input = getchar();
-        }
-        else if (game_state == GAME_PLAYER2_TURN)
-        {
-            puts("PLAYER 2: ");
-            input = getchar();
+            // take input based on the turn
+            if (game_state == GAME_PLAYER1_TURN)
+            {
+                puts("PLAYER 1: ");
+                input = getchar();
+            }
+            else if (game_state == GAME_PLAYER2_TURN)
+            {
+                puts("PLAYER 2: ");
+                input = getchar();
+            }
+            getchar();
+            // if valid break out
+            parsed_input = parseInput(input);
+            if (parsed_input != COL_NOT_VALID)
+            {
+                break;
+            }
+            puts("Enter Valid COlumn name \"A, B, C, D, E, F, G\"\n");
         }
 
+        // the previous while won't let us get here unless we do have valid column name
+        insertToken(board, game_state == GAME_PLAYER1_TURN ? PLAYER1_SLOT : PLAYER2_SLOT, parsed_input, 0);
+        system("clear");
+        system("cls");
+        printGameBoard(board);
+
         // check for win, if win set game state to finish
+        if (
+            check_for_winner(board, game_state == GAME_PLAYER1_TURN ? PLAYER1_SLOT : PLAYER2_SLOT) == TRUE)
+        {
+            if (game_state == GAME_PLAYER1_TURN)
+            {
+                puts("PLAYER1 WINS");
+            }
+            else
+            {
+                puts("PLAYER2 WINS");
+            }
+            game_state = GAME_FINISHED;
+        }
     }
 
     return 0;
@@ -114,7 +148,7 @@ int main()
 void printGameBoard(position_state_t board[ROWS_NUM][COLS_NUM])
 {
     int i, j;
-    printf("\tA |\tB |\tC |\tD |\tE |\tF |\tG |");
+    printf("%s\tA |\tB |\tC |\tD |\tE |\tF |\tG |", AC_WHITE);
     printf("\n----------------------------------------------------------\n");
 
     for (i = 0; i < ROWS_NUM; i++)
@@ -124,7 +158,7 @@ void printGameBoard(position_state_t board[ROWS_NUM][COLS_NUM])
         {
             if (board[i][j] == EMPTY)
             {
-                printf("%s\tZ |", AC_YELLOW);
+                printf("%s\t  |", AC_YELLOW);
             }
             else if (board[i][j] == PLAYER1_SLOT)
             {
