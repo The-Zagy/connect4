@@ -2,9 +2,9 @@
  *  FILE DESCRIPTION
  *  -----------------------------------------------------------------------------------------------------------------*/
 /**        \file  FileName.c
- *        \brief  
+ *        \brief
  *
- *      \details  
+ *      \details
  *
  *
  *********************************************************************************************************************/
@@ -15,11 +15,11 @@
 #include "../MCAL/PORT/Inc/Port_Cfg.h"
 
 /**********************************************************************************************************************
-*  LOCAL MACROS CONSTANT\FUNCTION
-*********************************************************************************************************************/
+ *  LOCAL MACROS CONSTANT\FUNCTION
+ *********************************************************************************************************************/
 
 /**********************************************************************************************************************
- *  LOCAL DATA 
+ *  LOCAL DATA
  *********************************************************************************************************************/
 
 /**********************************************************************************************************************
@@ -35,9 +35,9 @@ Port_ConfigType Move_Right_Button =
 		INPUT,
 		PULL_UP,
 		R4R
-		
-	};
-Port_ConfigType Move_Left_Button= 
+
+};
+Port_ConfigType Move_Left_Button =
 	{
 		GPIOF,
 		PORTF,
@@ -47,8 +47,8 @@ Port_ConfigType Move_Left_Button=
 		INPUT,
 		PULL_UP,
 		R4R
-		
-	};
+
+};
 
 /**********************************************************************************************************************
  *  LOCAL FUNCTION PROTOTYPES
@@ -62,20 +62,17 @@ Port_ConfigType Move_Left_Button=
  *  GLOBAL FUNCTIONS
  *********************************************************************************************************************/
 
-
-
 /******************************************************************************
-* \Syntax          : Std_ReturnType FunctionName(AnyType parameterName)        
-* \Description     : Describe this service                                    
-*                                                                             
-* \Sync\Async      : Synchronous                                               
-* \Reentrancy      : Non Reentrant                                             
-* \Parameters (in) : parameterName   Parameter Describtion                     
-* \Parameters (out): None                                                      
-* \Return value:   : Std_ReturnType  E_OK
-*                                    E_NOT_OK                                  
-*******************************************************************************/
-
+ * \Syntax          : Std_ReturnType FunctionName(AnyType parameterName)
+ * \Description     : Describe this service
+ *
+ * \Sync\Async      : Synchronous
+ * \Reentrancy      : Non Reentrant
+ * \Parameters (in) : parameterName   Parameter Describtion
+ * \Parameters (out): None
+ * \Return value:   : Std_ReturnType  E_OK
+ *                                    E_NOT_OK
+ *******************************************************************************/
 
 /**********************************************************************************************************************
  *  END OF FILE: FileName.c

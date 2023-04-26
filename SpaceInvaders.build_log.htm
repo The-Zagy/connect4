@@ -7,15 +7,27 @@ C:\Users\Azzam\projects\connect4\connect4\SpaceInvaders.uvproj
 Project File Date:  04/25/2023
 
 <h2>Output:</h2>
-Build target 'SpaceInvaders'
+Rebuild target 'SpaceInvaders'
 assembling startup.s...
 compiling Nokia5110.c...
 assembling random.s...
 compiling TExaS.c...
 compiling main.c...
-compiling spaceInvaders.c...
-compiling spaceInvaders_Lcfg.c...
+compiling connect4.c...
+HAL\src\connect4.c(688): warning:  #186-D: pointless comparison of unsigned integer with zero
+    if (col_num >= COLS_NUM || col_num < 0 || row_num >= ROWS_NUM || row_num < 0)
+HAL\src\connect4.c(711): warning:  #111-D: statement is unreachable
+    return FALSE_t;
+HAL\src\connect4.c(892): warning:  #1-D: last line of file ends without a newline
+  */
+HAL\src\connect4.c: 3 warnings, 0 errors
+compiling connect4_Lcfg.c...
 compiling ISRs.c...
+HAL\src\ISRs.c(55): warning:  #223-D: function "move_right" declared implicitly
+                move_right();
+HAL\src\ISRs.c(60): warning:  #223-D: function "move_left" declared implicitly
+                move_left();
+HAL\src\ISRs.c: 2 warnings, 0 errors
 compiling Dio.c...
 MCAL\DIO\Src\Dio.c(62): warning:  #188-D: enumerated type mixed with another type
                                 return GET_BIT(((GPIOA->GPIODATA) + (1 << (2 + ChannelId) )),ChannelId);
@@ -42,5 +54,19 @@ LIBRARIES\CpuDriver\src\cpu_driver.c(61): warning:  #1267-D: Implicit physical r
         );
 LIBRARIES\CpuDriver\src\cpu_driver.c: 1 warning, 0 errors
 linking...
-Program Size: Code=4424 RO-data=1088 RW-data=132 ZI-data=1684  
-".\SpaceInvaders.axf" - 0 Error(s), 8 Warning(s).
+Program Size: Code=3568 RO-data=1644 RW-data=92 ZI-data=1684  
+".\SpaceInvaders.axf" - 0 Error(s), 13 Warning(s).
+src\cpu_driver.c: 1 warning, 0 errors
+linking...
+Program Size: Code=3364 RO-data=1692 RW-data=92 ZI-data=1684  
+".\SpaceInvaders.axf" - 0 Error(s), 14 Warning(s).
+
+t();
+HAL\src\ISRs.c: 2 warnings, 0 errors
+compiling Dio.c...
+MCAL\DIO\Src\Dio.c(62): warning:  #188-D: enumerated type mixed with another type
+                                return GET_BIT(((GPIOA->GPIODATA) + (1 << (2 + ChannelId) )),ChannelId);
+MCAL\DIO\Src\Dio.c(64): warning:  #188-D: enumerated type mixed with another type
+                                return GET_BIT(((GPIOB->GPIODATA) + (1 << (2 + ChannelId) )),ChannelId);
+MCAL\DIO\Src\Dio.c(66): warning:  #188-D: enumerated type mixed with another type
+                                retur

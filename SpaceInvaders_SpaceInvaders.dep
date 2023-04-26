@@ -6,14 +6,13 @@ F (.\random.s)(0x54A1096A)(--cpu Cortex-M4 --pd "__RTX SETA 1" --pd "__EVAL SETA
 F (.\TExaS.c)(0x6447BE56)(-c --cpu Cortex-M4 -D__RTX -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.\APP -I.\HAL\inc -I.\HAL\src -I.\LIBRARIES\Common -I.\LIBRARIES\CpuDriver\inc -I.\LIBRARIES\CpuDriver\src -I.\MCAL\DIO\inc -I.\MCAL\DIO\Src -I.\MCAL\INTERRUPT\Inc -I.\MCAL\INTERRUPT\Src -I.\MCAL\PORT\Inc -I.\MCAL\PORT\Src -I.\MCAL\SYSTICK\Inc -I.\MCAL\SYSTICK\Src-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\texas.o --omf_browse .\texas.crf --depend .\texas.d)
 I (TExaS.h)(0x64482E18)
 F (E:\3th CSE\Second term\Lab-Tiva-C\Lab4_IO\config.h)(0x00000000)()
-F (.\APP\main.c)(0x64493EC0)(-c --cpu Cortex-M4 -D__RTX -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.\APP -I.\HAL\inc -I.\HAL\src -I.\LIBRARIES\Common -I.\LIBRARIES\CpuDriver\inc -I.\LIBRARIES\CpuDriver\src -I.\MCAL\DIO\inc -I.\MCAL\DIO\Src -I.\MCAL\INTERRUPT\Inc -I.\MCAL\INTERRUPT\Src -I.\MCAL\PORT\Inc -I.\MCAL\PORT\Src -I.\MCAL\SYSTICK\Inc -I.\MCAL\SYSTICK\Src-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\main.o --omf_browse .\main.crf --depend .\main.d)
+F (.\APP\main.c)(0x64496A97)(-c --cpu Cortex-M4 -D__RTX -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.\APP -I.\HAL\inc -I.\HAL\src -I.\LIBRARIES\Common -I.\LIBRARIES\CpuDriver\inc -I.\LIBRARIES\CpuDriver\src -I.\MCAL\DIO\inc -I.\MCAL\DIO\Src -I.\MCAL\INTERRUPT\Inc -I.\MCAL\INTERRUPT\Src -I.\MCAL\PORT\Inc -I.\MCAL\PORT\Src -I.\MCAL\SYSTICK\Inc -I.\MCAL\SYSTICK\Src-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\main.o --omf_browse .\main.crf --depend .\main.d)
 I (APP\../Nokia5110.h)(0x64483BF6)
 I (APP\../Random.h)(0x64482DA4)
 I (APP\../TExaS.h)(0x64482E18)
-I (APP\../HAL/inc/spaceInvaders.h)(0x64483EE0)
-F (.\HAL\inc\spaceInvaders.h)(0x64483EE0)()
-F (.\HAL\src\spaceInvaders.c)(0x64493F36)(-c --cpu Cortex-M4 -D__RTX -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.\APP -I.\HAL\inc -I.\HAL\src -I.\LIBRARIES\Common -I.\LIBRARIES\CpuDriver\inc -I.\LIBRARIES\CpuDriver\src -I.\MCAL\DIO\inc -I.\MCAL\DIO\Src -I.\MCAL\INTERRUPT\Inc -I.\MCAL\INTERRUPT\Src -I.\MCAL\PORT\Inc -I.\MCAL\PORT\Src -I.\MCAL\SYSTICK\Inc -I.\MCAL\SYSTICK\Src-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\spaceinvaders.o --omf_browse .\spaceinvaders.crf --depend .\spaceinvaders.d)
-I (.\APP\../Nokia5110.h)(0x64483BF6)
+I (APP\../HAL/inc/connect4.h)(0x64496C4C)
+F (.\HAL\inc\connect4.h)(0x64496C4C)()
+F (.\HAL\src\connect4.c)(0x64496CA5)(-c --cpu Cortex-M4 -D__RTX -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.\APP -I.\HAL\inc -I.\HAL\src -I.\LIBRARIES\Common -I.\LIBRARIES\CpuDriver\inc -I.\LIBRARIES\CpuDriver\src -I.\MCAL\DIO\inc -I.\MCAL\DIO\Src -I.\MCAL\INTERRUPT\Inc -I.\MCAL\INTERRUPT\Src -I.\MCAL\PORT\Inc -I.\MCAL\PORT\Src -I.\MCAL\SYSTICK\Inc -I.\MCAL\SYSTICK\Src-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\connect4.o --omf_browse .\connect4.crf --depend .\connect4.d)
 I (.\APP\../LIBRARIES/common/Std_Types.h)(0x63580CAC)
 I (.\APP\../LIBRARIES/common/Platform_Types.h)(0x6302354C)
 I (.\APP\../LIBRARIES/common/Compiler.h)(0x5F470D0A)
@@ -21,12 +20,15 @@ I (.\APP\../LIBRARIES/CpuDriver/inc/cpu_driver.h)(0x63580CB2)
 I (.\APP\../MCAL/INTERRUPT/inc/IntCtrl.h)(0x63580A68)
 I (.\APP\../MCAL/INTERRUPT/Inc/IntCtrl_Cfg.h)(0x63580B84)
 I (.\APP\../MCAL/INTERRUPT/Inc/IntCtrl_Types.h)(0x63580B7E)
-I (HAL\src\../inc/spaceInvaders.h)(0x64483EE0)
+I (HAL\src\../inc/connect4.h)(0x64496C4C)
+I (HAL\src\../../Nokia5110.h)(0x64483BF6)
+I (HAL\src\../../Random.h)(0x64482DA4)
+I (HAL\src\../../TExaS.h)(0x64482E18)
 I (.\APP\../MCAL/PORT/Inc/Port_Cfg.h)(0x64481980)
 I (.\APP\../MCAL/DIO/Inc/Dio.h)(0x63580C66)
 I (.\APP\../MCAL/DIO/Inc/Dio_Types.h)(0x63580C6E)
 I (.\APP\../LIBRARIES/common/Mcu_Hw.h)(0x6448249C)
-F (.\HAL\src\spaceInvaders_Lcfg.c)(0x64484314)(-c --cpu Cortex-M4 -D__RTX -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.\APP -I.\HAL\inc -I.\HAL\src -I.\LIBRARIES\Common -I.\LIBRARIES\CpuDriver\inc -I.\LIBRARIES\CpuDriver\src -I.\MCAL\DIO\inc -I.\MCAL\DIO\Src -I.\MCAL\INTERRUPT\Inc -I.\MCAL\INTERRUPT\Src -I.\MCAL\PORT\Inc -I.\MCAL\PORT\Src -I.\MCAL\SYSTICK\Inc -I.\MCAL\SYSTICK\Src-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\spaceinvaders_lcfg.o --omf_browse .\spaceinvaders_lcfg.crf --depend .\spaceinvaders_lcfg.d)
+F (.\HAL\src\connect4_Lcfg.c)(0x64495472)(-c --cpu Cortex-M4 -D__RTX -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.\APP -I.\HAL\inc -I.\HAL\src -I.\LIBRARIES\Common -I.\LIBRARIES\CpuDriver\inc -I.\LIBRARIES\CpuDriver\src -I.\MCAL\DIO\inc -I.\MCAL\DIO\Src -I.\MCAL\INTERRUPT\Inc -I.\MCAL\INTERRUPT\Src -I.\MCAL\PORT\Inc -I.\MCAL\PORT\Src -I.\MCAL\SYSTICK\Inc -I.\MCAL\SYSTICK\Src-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\connect4_lcfg.o --omf_browse .\connect4_lcfg.crf --depend .\connect4_lcfg.d)
 I (.\APP\../MCAL/PORT/Inc/Port_Cfg.h)(0x64481980)
 I (.\APP\../LIBRARIES/common/Std_Types.h)(0x63580CAC)
 I (.\APP\../LIBRARIES/common/Platform_Types.h)(0x6302354C)
@@ -37,12 +39,11 @@ I (.\APP\../MCAL/INTERRUPT/inc/IntCtrl.h)(0x63580A68)
 I (.\APP\../MCAL/INTERRUPT/Inc/IntCtrl_Cfg.h)(0x63580B84)
 I (.\APP\../MCAL/INTERRUPT/Inc/IntCtrl_Types.h)(0x63580B7E)
 I (.\APP\../LIBRARIES/common/Mcu_Hw.h)(0x6448249C)
-F (.\HAL\src\ISRs.c)(0x6448419A)(-c --cpu Cortex-M4 -D__RTX -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.\APP -I.\HAL\inc -I.\HAL\src -I.\LIBRARIES\Common -I.\LIBRARIES\CpuDriver\inc -I.\LIBRARIES\CpuDriver\src -I.\MCAL\DIO\inc -I.\MCAL\DIO\Src -I.\MCAL\INTERRUPT\Inc -I.\MCAL\INTERRUPT\Src -I.\MCAL\PORT\Inc -I.\MCAL\PORT\Src -I.\MCAL\SYSTICK\Inc -I.\MCAL\SYSTICK\Src-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\isrs.o --omf_browse .\isrs.crf --depend .\isrs.d)
+F (.\HAL\src\ISRs.c)(0x64495685)(-c --cpu Cortex-M4 -D__RTX -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.\APP -I.\HAL\inc -I.\HAL\src -I.\LIBRARIES\Common -I.\LIBRARIES\CpuDriver\inc -I.\LIBRARIES\CpuDriver\src -I.\MCAL\DIO\inc -I.\MCAL\DIO\Src -I.\MCAL\INTERRUPT\Inc -I.\MCAL\INTERRUPT\Src -I.\MCAL\PORT\Inc -I.\MCAL\PORT\Src -I.\MCAL\SYSTICK\Inc -I.\MCAL\SYSTICK\Src-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\isrs.o --omf_browse .\isrs.crf --depend .\isrs.d)
 I (.\APP\../LIBRARIES/common/Std_Types.h)(0x63580CAC)
 I (.\APP\../LIBRARIES/common/Platform_Types.h)(0x6302354C)
 I (.\APP\../LIBRARIES/common/Compiler.h)(0x5F470D0A)
 I (.\APP\../LIBRARIES/CpuDriver/inc/cpu_driver.h)(0x63580CB2)
-I (HAL\src\../inc/spaceInvaders.h)(0x64483EE0)
 I (.\APP\../Nokia5110.h)(0x64483BF6)
 I (.\APP\../LIBRARIES/COMMON/Mcu_Hw.h)(0x6448249C)
 I (HAL\src\../../MCAL/PORT/Inc/Port_Cfg.h)(0x64481980)

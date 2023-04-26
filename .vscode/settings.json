@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "connect4.h": "c"
+        "connect4.h": "c",
+        "mcu_hw.h": "c"
     }
 }
