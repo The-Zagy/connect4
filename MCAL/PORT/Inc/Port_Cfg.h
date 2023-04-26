@@ -26,6 +26,7 @@
  *********************************************************************************************************************/
 #include "../LIBRARIES/common/Std_Types.h"
 #include "../MCAL/DIO/Inc/Dio.h"
+#include "../MCAL/INTERRUPT/inc/IntCtrl.h"
 #include "../LIBRARIES/common/Mcu_Hw.h"
 
 /**********************************************************************************************************************
@@ -220,6 +221,35 @@ typedef enum
 	R8R
 }Port_PinOutputCurrentType;
 
+typedef enum 
+{
+	EDGE_SENSITIVE = 0,
+	LEVEL_SENSETIVE
+}GPIO_InterruptSense_Type;
+
+typedef enum 
+{
+	EDGE_CONTROLLED = 0,
+	BOTH_EDGES
+}GPIO_InterruptBothEdges_Type;
+typedef enum 
+{
+	FALLING_LOW = 0,
+	RISING_HIGH
+}GPIO_InterruptEvent_Type;
+
+typedef struct 
+{
+	GPIO_Type *GPIOx; 
+	DIO_ChannelType ChannelId;
+	GPIO_InterruptSense_Type interruptSense;
+	GPIO_InterruptBothEdges_Type interruptBothEdges;
+	GPIO_InterruptEvent_Type interruptEvent ;
+	IRQn_Type interruptIRQn;
+	
+}GPIO_EXTI_ConfigType;
+	
+
 typedef struct 
 {
 	GPIO_Type *GPIOx; 														// select the port registers
@@ -237,7 +267,7 @@ typedef struct
  *  GLOBAL FUNCTION PROTOTYPES
  *********************************************************************************************************************/
 void Port_Init( const Port_ConfigType* ConfigPtr); 
- 
+void Port_EXTI_Init(const GPIO_EXTI_ConfigType *ConfigPtr);
 #endif  /* FILE_NAME_H */
 
 /**********************************************************************************************************************

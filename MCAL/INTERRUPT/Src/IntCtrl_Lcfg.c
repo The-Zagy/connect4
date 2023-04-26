@@ -26,16 +26,16 @@
 /**********************************************************************************************************************
  *  GLOBAL DATA
  *********************************************************************************************************************/
-static IntCtr_Config Int_ButtonCtr = 
+IntCtr_Config Int_RightButton = 
 {
-	GPIO_PortA_IRQn,0x04,1,0
+	GPIO_PortF_IRQn,0x04,1,0
 };
-static IntCtr_Config Int_ButtonOn = 
+IntCtr_Config Int_LeftButton = 
 {
-	GPIO_PortC_IRQn,0x04,2,0
+	GPIO_PortF_IRQn,0x04,2,0
 };
 
-static IntCtr_Config Int_ButtonOff = 
+IntCtr_Config Int_ButtonOff = 
 {
 	GPIO_PortD_IRQn,0x04,3,0
 };

@@ -12,8 +12,7 @@
 /**********************************************************************************************************************
  *  INCLUDES
  *********************************************************************************************************************/
-#include "../LIBRARIES/common/Std_Types.h"
-#include "../LIBRARIES/CpuDriver/inc/cpu_driver.h"
+#include "../MCAL/PORT/Inc/Port_Cfg.h"
 
 /**********************************************************************************************************************
 *  LOCAL MACROS CONSTANT\FUNCTION
@@ -26,6 +25,49 @@
 /**********************************************************************************************************************
  *  GLOBAL DATA
  *********************************************************************************************************************/
+Port_ConfigType Move_Right_Button =
+	{
+		GPIOF,
+		PORTF,
+		PF0,
+		DIGITAL_PIN,
+		HIGH,
+		INPUT,
+		PULL_UP,
+		R4R
+		
+	};
+Port_ConfigType Move_Left_Button= 
+	{
+		GPIOF,
+		PORTF,
+		PF4,
+		DIGITAL_PIN,
+		HIGH,
+		INPUT,
+		PULL_UP,
+		R4R
+		
+	};
+	
+GPIO_EXTI_ConfigType Right_Button=
+	{
+		GPIOF,
+		PF0,
+		LEVEL_SENSETIVE,
+		EDGE_CONTROLLED,
+		FALLING_LOW,
+		GPIO_PortF_IRQn
+	};
+	GPIO_EXTI_ConfigType Left_Button=
+	{
+		GPIOF,
+		PF4,
+		LEVEL_SENSETIVE,
+		EDGE_CONTROLLED,
+		FALLING_LOW,
+		GPIO_PortF_IRQn
+	};
 
 /**********************************************************************************************************************
  *  LOCAL FUNCTION PROTOTYPES
@@ -38,28 +80,6 @@
 /**********************************************************************************************************************
  *  GLOBAL FUNCTIONS
  *********************************************************************************************************************/
-
-void cpuDriver_EnableGlobalInterrupt(void)
-{
-	__asm("CPSIE I");
-}
-void cpuDriver_DisableGlobalInterrupt(void)
-{
-	__asm("CPSID i;");
-}
-
-void cpuDriver_EnablePriviledgeMode(void)
-{
-	__asm("SVC #0;");
-}
-
-void cpuDriver_DisablePriviledgeMode(void)
-{
-	__asm(
-					"MOVS 	R0, 		#4;"
-					"MSR 		CONTROL, R0;"
-	);
-}
 
 
 
@@ -74,11 +94,7 @@ void cpuDriver_DisablePriviledgeMode(void)
 * \Return value:   : Std_ReturnType  E_OK
 *                                    E_NOT_OK                                  
 *******************************************************************************/
-/*Std_ReturnType FunctionName(AnyType parameterName)
-{
-	
-	
-}*/
+
 
 /**********************************************************************************************************************
  *  END OF FILE: FileName.c

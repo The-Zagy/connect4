@@ -55,6 +55,7 @@
 // Maximum dimensions of the LCD, although the pixels are
 // numbered from zero to (MAX-1).  Address may automatically
 // be incremented after each transmission.
+
 #define MAX_X                   84
 #define MAX_Y                   48
 // *************************** Screen dimensions ***************************
@@ -68,7 +69,8 @@
 
 // This table contains the hex values that represent pixels
 // for a font that is 5 pixels wide and 8 pixels high
-static const char ASCII[][5] = {
+	static const char ASCII[][5] = {
+		
   {0x00, 0x00, 0x00, 0x00, 0x00} // 20
   ,{0x00, 0x00, 0x5f, 0x00, 0x00} // 21 !
   ,{0x00, 0x07, 0x00, 0x07, 0x00} // 22 "
@@ -269,3 +271,5 @@ void Nokia5110_ClearBuffer(void);
 // outputs: none
 // assumes: LCD is in default horizontal addressing mode (V = 0)
 void Nokia5110_DisplayBuffer(void);
+
+

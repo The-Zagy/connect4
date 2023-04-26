@@ -14,11 +14,11 @@
  *********************************************************************************************************************/
 #include "../LIBRARIES/common/Std_Types.h"
 #include "../LIBRARIES/CpuDriver/inc/cpu_driver.h"
-#include "../inc/connect4.h"
-#include "../../Nokia5110.h"
-#include "../../Random.h"
-#include "../../TExaS.h"
+#include "../inc/spaceInvaders.h"
+#include "../Nokia5110.h"
 #include "../LIBRARIES/COMMON/Mcu_Hw.h"
+#include "../../MCAL/PORT/Inc/Port_Cfg.h"
+#include "../../LIBRARIES/Common/Bit_Math.h"
 
 /**********************************************************************************************************************
 *  LOCAL MACROS CONSTANT\FUNCTION
@@ -32,6 +32,8 @@
  *  GLOBAL DATA
  *********************************************************************************************************************/
 
+extern Port_ConfigType Move_Right_Button;
+extern Port_ConfigType Move_Left_Button;
 /**********************************************************************************************************************
  *  LOCAL FUNCTION PROTOTYPES
  *********************************************************************************************************************/
@@ -48,14 +50,14 @@ void GPIOPortF_Handler(void)
 	Nokia5110_ClearBuffer();
 	Nokia5110_DisplayBuffer();      // draw buffer
 	
-	if(GPIOF->GPIORIS & (1<<0))  
+	if(Move_Right_Button.GPIOx->GPIORIS & (1<<Move_Right_Button.ChannelId))  
 	{//s1 pressed
-		GPIOF->GPIOICR= 0x01;
+		SET_BIT_PERIPH_BAND(Move_Right_Button.GPIOx->GPIOICR,Move_Right_Button.ChannelId);
 		move_right();
 	}
-	else if (GPIOF->GPIORIS  & (1<<4))
+	else if (Move_Left_Button.GPIOx->GPIORIS & (1<<Move_Left_Button.ChannelId))
 	{//s3 pressed
-		GPIOF->GPIOICR = 0x10;
+		SET_BIT_PERIPH_BAND(Move_Left_Button.GPIOx->GPIOICR,Move_Left_Button.ChannelId);
 		move_left();
 	}
 }

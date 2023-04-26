@@ -15,6 +15,7 @@
 #include "../LIBRARIES/common/Std_Types.h"
 #include "../MCAL/INTERRUPT/Inc/IntCtrl.h"
 #include "../LIBRARIES/common/Mcu_Hw.h"
+#include "../LIBRARIES/CpuDriver/inc/cpu_driver.h"
 #include "../MCAL/INTERRUPT/Inc/IntCtrl_Cfg.h"
 #include "../LIBRARIES/common/Bit_Math.h"
 /**********************************************************************************************************************
@@ -74,7 +75,6 @@ void IntCtrl_EnableIRQ(IRQn_Type interruptIRQn)
 void IntCrtl_Init(IntCtr_Config* Int_Cfg)
 {
 
-
 	/*TODO Configure Grouping\SubGrouping System in APINT register in SCB*/
 	SET_BIT_PERIPH_BAND_VAL(SCB->APINT,(uint32_t)APINT_KEY<<16);
 	SET_BIT_PERIPH_BAND_VAL(SCB->APINT,(uint32_t)Int_Cfg->InterruptGrouping & (uint32_t)0x07 <<8);
@@ -100,7 +100,7 @@ void IntCrtl_Init(IntCtr_Config* Int_Cfg)
 	
 	/*TODO : Enable\Disable based on user configurations in NVIC_ENx and SCB_Sys Registers */
 	IntCtrl_EnableIRQ(Int_Cfg->InterruptPeripheralGate);
-	
+	cpuDriver_EnableGlobalInterrupt();
 }
 
 

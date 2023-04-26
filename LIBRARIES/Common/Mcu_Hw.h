@@ -20,28 +20,8 @@
 /**********************************************************************************************************************
  *  GLOBAL DATA TYPES AND STRUCTURES
  *********************************************************************************************************************/
-typedef struct 
-{
-    uint32_t VECACT   :8;
-    uint32_t          :3;
-    uint32_t RETBASE  :1;
-    uint32_t VECPEND  :8;
-    uint32_t          :2;
-    uint32_t ISRPEND  :1;
-    uint32_t ISRPRE   :1;
-    uint32_t          :1;
-    uint32_t PENDSTCLR:1;
-    uint32_t PENDSTSET:1;
-    uint32_t UNPENDSV :1;
-    uint32_t PENDSV   :1;
-    uint32_t          :2;
-    uint32_t NMISET   :1; 
-}INTCTRL_BF;
-typedef union 
-{
-    uint32_t R;
-    INTCTRL_BF B;
-}INTCTRL_Tag;
+
+
 
 /*********************** Register map for GPIO ***********************/
 typedef struct

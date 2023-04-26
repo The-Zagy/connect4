@@ -1,3 +1,178 @@
+
+/**********************************************************************************************************************
+ *  FILE DESCRIPTION
+ *  -----------------------------------------------------------------------------------------------------------------*/
+/**        \file  FileName.c
+ *        \brief  
+ *
+ *      \details  
+ *
+ *
+ *********************************************************************************************************************/
+
+/**********************************************************************************************************************
+ *  INCLUDES
+ *********************************************************************************************************************/
+#include "../Nokia5110.h"
+#include "../LIBRARIES/common/Std_Types.h"
+#include "../LIBRARIES/CpuDriver/inc/cpu_driver.h"
+#include "../MCAL/INTERRUPT/inc/IntCtrl.h"
+#include "../inc/spaceInvaders.h"
+#include "../MCAL/PORT/Inc/Port_Cfg.h"
+
+/**********************************************************************************************************************
+*  LOCAL MACROS CONSTANT\FUNCTION
+*********************************************************************************************************************/
+
+/**********************************************************************************************************************
+ *  LOCAL DATA 
+ *********************************************************************************************************************/
+
+/**********************************************************************************************************************
+ *  GLOBAL DATA
+ *********************************************************************************************************************/
+// image of the player's ship
+// includes two blacked out columns on the left and right sides of the image to prevent smearing when moved 2 pixels to the left or right
+// width=18 x height=8
+const unsigned char PlayerShip0[] = {
+ 0x42, 0x4D, 0xD6, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x76, 0x00, 0x00, 0x00, 0x28, 0x00, 0x00, 0x00, 0x12, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x01, 0x00, 0x04, 0x00, 0x00, 0x00,
+ 0x00, 0x00, 0x60, 0x00, 0x00, 0x00, 0xC4, 0x0E, 0x00, 0x00, 0xC4, 0x0E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x80,
+ 0x00, 0x00, 0x00, 0x80, 0x80, 0x00, 0x80, 0x00, 0x00, 0x00, 0x80, 0x00, 0x80, 0x00, 0x80, 0x80, 0x00, 0x00, 0x80, 0x80, 0x80, 0x00, 0xC0, 0xC0, 0xC0, 0x00, 0x00, 0x00, 0xFF, 0x00, 0x00, 0xFF,
+ 0x00, 0x00, 0x00, 0xFF, 0xFF, 0x00, 0xFF, 0x00, 0x00, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0xFF, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0x00, 0x00,
+ 0x00, 0x00, 0x00, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0x00, 0x00, 0x00, 0x00, 0x00, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0A, 0xAA, 0xAA, 0xAA, 0xAA,
+ 0xAA, 0xA0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0A, 0xAA, 0xA0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0A, 0xAA, 0xA0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+ 0x00, 0x00, 0xAA, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF};
+
+	// Set up the player at the bottom center of the screen
+
+extern Port_ConfigType Move_Right_Button;
+extern Port_ConfigType Move_Left_Button;
+extern GPIO_EXTI_ConfigType Right_Button;
+extern GPIO_EXTI_ConfigType Left_Button;
+extern IntCtr_Config Int_RightButton;
+extern IntCtr_Config Int_LeftButton;
+	
+Player player = {SCREEN_WIDTH/2 - PLAYER_WIDTH/2, SCREEN_HEIGHT - PLAYER_HEIGHT - 2};
+/**********************************************************************************************************************
+ *  LOCAL FUNCTION PROTOTYPES
+ *********************************************************************************************************************/
+
+/**********************************************************************************************************************
+ *  LOCAL FUNCTIONS
+ *********************************************************************************************************************/
+
+/**********************************************************************************************************************
+ *  GLOBAL FUNCTIONS
+ *********************************************************************************************************************/
+
+/*
+void game_InterruptInit(void)
+{
+	
+	
+	GPIOF_IS 			 &= ~0x11;					// Level sensitive
+	GPIOF_IBE 		&= ~0x11;									// not both edges
+	GPIOF_IEV 		&= ~0x00;									// low level
+	GPIOF_ICR			= 0x11;									// clear interrupts
+	GPIOF_IM			|= 0x11;
+	NVIC_PRI7_R 	= (NVIC_PRI7_R&0xFF00FFFF)|0x00A00000; // (g) priority 5
+	NVIC_EN0_R 		= 0x40000000;      // (h) enable interrupt 30 in NVIC
+	EnableInterrupts();           // (i) Clears the I bit
+}*/
+void game_Init(void)
+{
+	Port_Init(&Move_Right_Button);
+	Port_Init(&Move_Left_Button);
+	Port_EXTI_Init(&Right_Button);
+	Port_EXTI_Init(&Left_Button);
+	IntCrtl_Init(&Int_RightButton);
+	IntCrtl_Init(&Int_LeftButton);
+}
+
+// Draw the player on the screen
+void draw_player(Player p) {
+  Nokia5110_PrintBMP(p.x, p.y, PlayerShip0, 0);
+	Nokia5110_DisplayBuffer();     
+}
+
+// Clear the player from the screen
+void clear_player(Player p) {
+  Nokia5110_PrintBMP(p.x, p.y, PlayerShip0, 1);
+}
+
+// Move the player left
+void move_left(void) {
+  clear_player(player);
+  player.x -= 1;
+  draw_player(player);
+}
+
+// Move the player right
+void move_right(void) {
+  clear_player(player);
+  player.x += 1;
+  draw_player(player);
+}
+
+
+/******************************************************************************
+* \Syntax          : Std_ReturnType FunctionName(AnyType parameterName)        
+* \Description     : Describe this service                                    
+*                                                                             
+* \Sync\Async      : Synchronous                                               
+* \Reentrancy      : Non Reentrant                                             
+* \Parameters (in) : parameterName   Parameter Describtion                     
+* \Parameters (out): None                                                      
+* \Return value:   : Std_ReturnType  E_OK
+*                                    E_NOT_OK                                  
+*******************************************************************************/
+
+
+/**********************************************************************************************************************
+ *  END OF FILE: spaceInvaders.c
+ *********************************************************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // SpaceInvaders.c
 // Runs on LM4F120/TM4C123
 // Jonathan Valvano and Daniel Valvano
@@ -67,7 +242,7 @@
 // SSI0Tx        (DN,  pin 6) connected to PA5
 // SSI0Clk       (SCLK, pin 7) connected to PA2
 // back light    (LED, pin 8) not connected, consists of 4 white LEDs which draw ~80mA total
-#include "Nokia5110.h"
+/*#include "Nokia5110.h"
 #include "Random.h"
 #include "TExaS.h"
 #include "config.h"
@@ -493,4 +668,4 @@ void GPIOPortF_Handler(void)
 	Nokia5110_DisplayBuffer();     // draw buffer
 		
 	
-}
+}*/

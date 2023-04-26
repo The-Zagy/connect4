@@ -42,7 +42,7 @@
  *  GLOBAL FUNCTIONS
  *********************************************************************************************************************/
 
-
+uint8_t x;
 /******************************************************************************
 * \Syntax          : void Port_Init( const Port_ConfigType* ConfigPtr)        
 * \Description     : Initiates specified port with the configuration values                                   
@@ -56,7 +56,9 @@
 *******************************************************************************/
 void Port_Init( const Port_ConfigType* ConfigPtr)
 {
-		
+			SET_BIT_PERIPH_BAND(SYSCTRL->RCGCGPIO,ConfigPtr->PortType);
+			x=0;
+			x=0;
 			SET_BIT_PERIPH_BAND(SYSCTRL->GPIOHBCTL,ConfigPtr->PortType);
 	
 			ConfigPtr->GPIOx->GPIOLOCK = GPIO_LOCKKEY;
@@ -429,6 +431,46 @@ void Port_Init( const Port_ConfigType* ConfigPtr)
 
 
 }
+void Port_EXTI_Init(const GPIO_EXTI_ConfigType *ConfigPtr)
+{
+	switch (ConfigPtr->interruptSense)
+	{
+		case EDGE_SENSITIVE:
+			CLEAR_BIT_PERIPH_BAND(ConfigPtr->GPIOx->GPIOIS,ConfigPtr->ChannelId);
+			break;
+		case LEVEL_SENSETIVE:
+			SET_BIT_PERIPH_BAND(ConfigPtr->GPIOx->GPIOIS,ConfigPtr->ChannelId);
+			break;
+		default:
+			break;
+	}
+	switch (ConfigPtr->interruptBothEdges)
+	{
+		case EDGE_CONTROLLED:
+			CLEAR_BIT_PERIPH_BAND(ConfigPtr->GPIOx->GPIOIBE,ConfigPtr->ChannelId);
+			break;
+		case BOTH_EDGES:
+			SET_BIT_PERIPH_BAND(ConfigPtr->GPIOx->GPIOIBE,ConfigPtr->ChannelId);
+			break;
+		default:
+			break;
+	}
+	switch (ConfigPtr->interruptEvent)
+	{
+		case FALLING_LOW:
+			CLEAR_BIT_PERIPH_BAND(ConfigPtr->GPIOx->GPIOIEV,ConfigPtr->ChannelId);
+			break;
+		case RISING_HIGH:
+			SET_BIT_PERIPH_BAND(ConfigPtr->GPIOx->GPIOIEV,ConfigPtr->ChannelId);
+			break;
+		default:
+			break;
+	}
+	SET_BIT_PERIPH_BAND(ConfigPtr->GPIOx->GPIOICR,ConfigPtr->ChannelId);
+	SET_BIT_PERIPH_BAND(ConfigPtr->GPIOx->GPIOIM,ConfigPtr->ChannelId);
+	
+}
+
 
 /**********************************************************************************************************************
  *  END OF FILE: Portss.c
