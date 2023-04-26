@@ -69,4 +69,25 @@ MCAL\DIO\Src\Dio.c(62): warning:  #188-D: enumerated type mixed with another typ
 MCAL\DIO\Src\Dio.c(64): warning:  #188-D: enumerated type mixed with another type
                                 return GET_BIT(((GPIOB->GPIODATA) + (1 << (2 + ChannelId) )),ChannelId);
 MCAL\DIO\Src\Dio.c(66): warning:  #188-D: enumerated type mixed with another type
-                                retur
+                                return GET_BIT(((GPIOC->GPIODATA) + (1 << (2 + ChannelId) )),ChannelId);
+MCAL\DIO\Src\Dio.c(68): warning:  #188-D: enumerated type mixed with another type
+                                return GET_BIT(((GPIOD->GPIODATA) + (1 << (2 + ChannelId) )),ChannelId);
+MCAL\DIO\Src\Dio.c(70): warning:  #188-D: enumerated type mixed with another type
+                                return GET_BIT(((GPIOE->GPIODATA) + (1 << (2 + ChannelId) )),ChannelId);
+MCAL\DIO\Src\Dio.c(72): warning:  #188-D: enumerated type mixed with another type
+                                return GET_BIT(((GPIOF->GPIODATA) + (1 << (2 + ChannelId) )),ChannelId);
+MCAL\DIO\Src\Dio.c(76): warning:  #188-D: enumerated type mixed with another type
+        return 0;
+MCAL\DIO\Src\Dio.c: 7 warnings, 0 errors
+compiling IntCtrl.c...
+compiling IntCtrl_Lcfg.c...
+compiling Port.c...
+compiling Port_Lcfg.c...
+compiling Systick.c...
+compiling cpu_driver.c...
+LIBRARIES\CpuDriver\src\cpu_driver.c(61): warning:  #1267-D: Implicit physical register R0 should be defined as a variable
+        );
+LIBRARIES\CpuDriver\src\cpu_driver.c: 1 warning, 0 errors
+".\SpaceInvaders.axf" - 30 Error(s), 13 Warning(s).
+Target not created
+Error: Could not load file 'C:\Users\Azzam\projects\connect4\connect4\SpaceInvaders.axf'. Debugger aborted !

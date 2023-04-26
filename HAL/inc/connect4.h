@@ -34,6 +34,13 @@ enum Cols_name
   G,
   COL_NOT_VALID = -1
 };
+typedef enum Game_state
+{
+  GAME_START,
+  GAME_PLAYER1_TURN,
+  GAME_PLAYER2_TURN,
+  GAME_FINISHED
+} game_state_t;
 
 typedef enum Position_state
 {
@@ -46,7 +53,7 @@ extern Player player;
 
 extern const unsigned char PlayerShip0[];
 
-void draw_board(position_state_t board[ROWS_NUM][COLS_NUM]);
+void draw_board(position_state_t board[ROWS_NUM][COLS_NUM], enum Cols_name arrow_position, enum Game_state game_state);
 void draw_player(Player p);
 void clear_player(Player p);
 void move_left(void);

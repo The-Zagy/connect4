@@ -16,7 +16,7 @@ int main(void)
   // Nokia5110_DisplayBuffer(); // draw buffer
   // Nokia5110_PrintBMP(20, 20, PlayerShip0, 0);
   // Nokia5110_DisplayBuffer(); // draw buffer
-  draw_board(board, 0);
+  draw_board(board, 3, 1);
 
   // Game loop
   while (1)
