@@ -1,0 +1,48 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+D:\collage\connect4\SpaceInvaders.uvproj
+Project File Date:  04/25/2023
+
+<h2>Output:</h2>
+Build target 'SpaceInvaders'
+compiling connect4.c...
+HAL\src\connect4.c(151): warning:  #186-D: pointless comparison of unsigned integer with zero
+    if (col_num >= COLS_NUM || col_num < 0 || row_num >= ROWS_NUM || row_num < 0)
+HAL\src\connect4.c(174): warning:  #111-D: statement is unreachable
+    return FALSE_t;
+HAL\src\connect4.c: 2 warnings, 0 errors
+linking...
+Program Size: Code=3888 RO-data=1088 RW-data=92 ZI-data=1684  
+".\SpaceInvaders.axf" - 0 Error(s), 2 Warning(s).
+</pre>
+</body>
+</html>
+< COLS_NUM - 3; c++)
+HAL\src\connect4.c(182): error:  #29: expected an expression
+      for (int r = 0; r < ROWS_NUM; r++)
+HAL\src\connect4.c(182): error:  #20: identifier "r" is undefined
+      for (int r = 0; r < ROWS_NUM; r++)
+HAL\src\connect4.c(192): error:  #29: expected an expression
+    for (int c = 0; c < COLS_NUM; c++)
+HAL\src\connect4.c(194): error:  #29: expected an expression
+      for (int r = 0; r < ROWS_NUM - 3; r++)
+HAL\src\connect4.c(194): error:  #20: identifier "r" is undefined
+      for (int r = 0; r < ROWS_NUM - 3; r++)
+HAL\src\connect4.c(204): error:  #29: expected an expression
+    for (int c = 0; c < COLS_NUM - 3; c++)
+HAL\src\connect4.c(206): error:  #29: expected an expression
+      for (int r = 0; r < ROWS_NUM - 3; r++)
+HAL\src\connect4.c(206): error:  #20: identifier "r" is undefined
+      for (int r = 0; r < ROWS_NUM - 3; r++)
+HAL\src\connect4.c(216): error:  #29: expected an expression
+    for (int c = 0; c < COLS_NUM - 3; c++)
+HAL\src\connect4.c(218): error:  #29: expected an expression
+      for (int r = 3; r < ROWS_NUM; r++)
+HAL\src\connect4.c(218): error:  #20: identifier "r" is undefined
+      for (int r = 3; r < ROWS_NUM; r++)
+HAL\src\connect4.c: 2 warnings, 13 errors
+".\SpaceInvaders.axf" - 13 Error(s), 2 Warning(s).
+Target not created
