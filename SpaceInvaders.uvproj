@@ -462,19 +462,19 @@
           <GroupName>HAL</GroupName>
           <Files>
             <File>
-              <FileName>spaceInvaders.h</FileName>
+              <FileName>connect4.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\HAL\inc\spaceInvaders.h</FilePath>
+              <FilePath>.\HAL\inc\connect4.h</FilePath>
             </File>
             <File>
-              <FileName>spaceInvaders.c</FileName>
+              <FileName>connect4.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\HAL\src\spaceInvaders.c</FilePath>
+              <FilePath>.\HAL\src\connect4.c</FilePath>
             </File>
             <File>
-              <FileName>spaceInvaders_Lcfg.c</FileName>
+              <FileName>connect4_Lcfg.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\HAL\src\spaceInvaders_Lcfg.c</FilePath>
+              <FilePath>.\HAL\src\connect4_Lcfg.c</FilePath>
             </File>
             <File>
               <FileName>ISRs.c</FileName>
