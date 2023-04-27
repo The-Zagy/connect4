@@ -120,7 +120,8 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGUARM</Key>
-          <Name>ججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججب`‘34M°(ُo</Name>
+          <Name>ججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججججب`‘
+34M°(ُo</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -435,8 +436,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\HAL\inc\spaceInvaders.h</PathWithFileName>
-      <FilenameWithoutPath>spaceInvaders.h</FilenameWithoutPath>
+      <PathWithFileName>.\HAL\inc\connect4.h</PathWithFileName>
+      <FilenameWithoutPath>connect4.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -447,8 +448,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\HAL\src\spaceInvaders.c</PathWithFileName>
-      <FilenameWithoutPath>spaceInvaders.c</FilenameWithoutPath>
+      <PathWithFileName>.\HAL\src\connect4.c</PathWithFileName>
+      <FilenameWithoutPath>connect4.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -459,8 +460,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\HAL\src\spaceInvaders_Lcfg.c</PathWithFileName>
-      <FilenameWithoutPath>spaceInvaders_Lcfg.c</FilenameWithoutPath>
+      <PathWithFileName>.\HAL\src\connect4_Lcfg.c</PathWithFileName>
+      <FilenameWithoutPath>connect4_Lcfg.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
