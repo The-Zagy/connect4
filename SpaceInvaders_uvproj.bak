@@ -10,6 +10,8 @@
       <TargetName>SpaceInvaders</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
+      <pCCUsed>5060750::V5.06 update 6 (build 750)::ARMCC</pCCUsed>
+      <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>LM4F120H5QR</Device>
@@ -72,6 +74,8 @@
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
+            <nStopB1X>0</nStopB1X>
+            <nStopB2X>0</nStopB2X>
           </BeforeMake>
           <AfterMake>
             <RunUserProg1>0</RunUserProg1>
@@ -80,6 +84,8 @@
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
+            <nStopA1X>0</nStopA1X>
+            <nStopA2X>0</nStopA2X>
           </AfterMake>
           <SelectedForBatchBuild>0</SelectedForBatchBuild>
           <SVCSIdString></SVCSIdString>
@@ -141,10 +147,9 @@
             <RestoreToolbox>1</RestoreToolbox>
             <RestoreTracepoints>0</RestoreTracepoints>
             <RestoreSysVw>1</RestoreSysVw>
-            <UsePdscDebugDescription>1</UsePdscDebugDescription>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>3</TargetSelection>
+          <TargetSelection>12</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -218,12 +223,14 @@
             <hadXRAM>0</hadXRAM>
             <uocXRam>0</uocXRam>
             <RvdsVP>1</RvdsVP>
+            <RvdsMve>0</RvdsMve>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
             <useUlib>0</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
+            <nSecure>0</nSecure>
             <RoSelD>3</RoSelD>
             <RwSelD>3</RwSelD>
             <CodeSel>0</CodeSel>
@@ -357,12 +364,20 @@
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <uC99>0</uC99>
+            <uGnu>0</uGnu>
             <useXO>0</useXO>
+            <v6Lang>1</v6Lang>
+            <v6LangP>1</v6LangP>
+            <vShortEn>1</vShortEn>
+            <vShortWch>1</vShortWch>
+            <v6Lto>0</v6Lto>
+            <v6WtE>0</v6WtE>
+            <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define>rvmdk PART_LM4F120H5QR</Define>
               <Undefine></Undefine>
-              <IncludePath>..;..\..\..</IncludePath>
+              <IncludePath>.\APP;.\HAL\inc;.\HAL\src;.\LIBRARIES\Common;.\LIBRARIES\CpuDriver\inc;.\LIBRARIES\CpuDriver\src;.\MCAL\DIO\inc;.\MCAL\DIO\Src;.\MCAL\INTERRUPT\Inc;.\MCAL\INTERRUPT\Src;.\MCAL\PORT\Inc;.\MCAL\PORT\Src;.\MCAL\SYSTICK\Inc;.\MCAL\SYSTICK\Src</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -375,6 +390,7 @@
             <NoWarn>0</NoWarn>
             <uSurpInc>0</uSurpInc>
             <useXO>0</useXO>
+            <uClangAs>0</uClangAs>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define></Define>
@@ -421,14 +437,159 @@
               <FilePath>.\random.s</FilePath>
             </File>
             <File>
-              <FileName>SpaceInvaders.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\SpaceInvaders.c</FilePath>
-            </File>
-            <File>
               <FileName>TExaS.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\TExaS.c</FilePath>
+            </File>
+            <File>
+              <FileName>config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>E:\3th CSE\Second term\Lab-Tiva-C\Lab4_IO\config.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>APP</GroupName>
+          <Files>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\APP\main.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>HAL</GroupName>
+          <Files>
+            <File>
+              <FileName>connect4.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\HAL\inc\connect4.h</FilePath>
+            </File>
+            <File>
+              <FileName>connect4.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\HAL\src\connect4.c</FilePath>
+            </File>
+            <File>
+              <FileName>connect4_Lcfg.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\HAL\src\connect4_Lcfg.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISRs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\HAL\src\ISRs.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>MCAL</GroupName>
+          <Files>
+            <File>
+              <FileName>Dio.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\MCAL\DIO\inc\Dio.h</FilePath>
+            </File>
+            <File>
+              <FileName>Dio_Types.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\MCAL\DIO\inc\Dio_Types.h</FilePath>
+            </File>
+            <File>
+              <FileName>Dio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\MCAL\DIO\Src\Dio.c</FilePath>
+            </File>
+            <File>
+              <FileName>IntCtrl.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\MCAL\INTERRUPT\Inc\IntCtrl.h</FilePath>
+            </File>
+            <File>
+              <FileName>IntCtrl_Cfg.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\MCAL\INTERRUPT\Inc\IntCtrl_Cfg.h</FilePath>
+            </File>
+            <File>
+              <FileName>IntCtrl_Types.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\MCAL\INTERRUPT\Inc\IntCtrl_Types.h</FilePath>
+            </File>
+            <File>
+              <FileName>IntCtrl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\MCAL\INTERRUPT\Src\IntCtrl.c</FilePath>
+            </File>
+            <File>
+              <FileName>IntCtrl_Lcfg.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\MCAL\INTERRUPT\Src\IntCtrl_Lcfg.c</FilePath>
+            </File>
+            <File>
+              <FileName>Port_Cfg.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\MCAL\PORT\Inc\Port_Cfg.h</FilePath>
+            </File>
+            <File>
+              <FileName>Port.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\MCAL\PORT\Src\Port.c</FilePath>
+            </File>
+            <File>
+              <FileName>Port_Lcfg.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\MCAL\PORT\Src\Port_Lcfg.c</FilePath>
+            </File>
+            <File>
+              <FileName>Systick.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\MCAL\SYSTICK\Inc\Systick.h</FilePath>
+            </File>
+            <File>
+              <FileName>Systick_Types.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\MCAL\SYSTICK\Inc\Systick_Types.h</FilePath>
+            </File>
+            <File>
+              <FileName>Systick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\MCAL\SYSTICK\Src\Systick.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>LIBRARIES</GroupName>
+          <Files>
+            <File>
+              <FileName>Bit_Math.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\LIBRARIES\Common\Bit_Math.h</FilePath>
+            </File>
+            <File>
+              <FileName>Compiler.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\LIBRARIES\Common\Compiler.h</FilePath>
+            </File>
+            <File>
+              <FileName>Platform_Types.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\LIBRARIES\Common\Platform_Types.h</FilePath>
+            </File>
+            <File>
+              <FileName>Std_Types.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\LIBRARIES\Common\Std_Types.h</FilePath>
+            </File>
+            <File>
+              <FileName>cpu_driver.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\LIBRARIES\CpuDriver\inc\cpu_driver.h</FilePath>
+            </File>
+            <File>
+              <FileName>cpu_driver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\LIBRARIES\CpuDriver\src\cpu_driver.c</FilePath>
             </File>
           </Files>
         </Group>

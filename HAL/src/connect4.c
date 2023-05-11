@@ -13,6 +13,7 @@
 /**********************************************************************************************************************
  *  INCLUDES
  *********************************************************************************************************************/
+#include "../tm4c123gh6pm.h"
 #include "../LIBRARIES/common/Std_Types.h"
 #include "../LIBRARIES/CpuDriver/inc/cpu_driver.h"
 #include "../MCAL/INTERRUPT/inc/IntCtrl.h"
@@ -28,6 +29,16 @@
 #define AC_GREEN "\x1b[32m"
 #define AC_YELLOW "\x1b[33m"
 
+// Define the push button inputs
+#define MOVE_LEFT_BUTTON_PIN   4
+#define MOVE_RIGHT_BUTTON_PIN  0
+
+// Define a global variable to hold the current column name
+enum Cols_name current_col = C;
+
+// Define the game board array
+position_state_t board[ROWS_NUM][COLS_NUM];
+
 /**
  * insert new position state in certian column, and row number is managed by gravity [first empty row in this column], the row_num state from which row start searching for correct position in recursive
  * return TRUE if inserted successfully
@@ -35,6 +46,9 @@
 bool_t insertToken(position_state_t board[ROWS_NUM][COLS_NUM], position_state_t state, enum Cols_name col_num, unsigned row_num);
 bool_t check_for_winner(position_state_t board[ROWS_NUM][COLS_NUM], position_state_t piece);
 void draw_board(position_state_t board[ROWS_NUM][COLS_NUM], enum Cols_name arrow_position, enum Game_state game_state);
+void init_GPIO_interrupt(void);
+void draw_arrow_indicator(enum Cols_name current_col);
+void draw_board_with_indicator(position_state_t board[ROWS_NUM][COLS_NUM], enum Cols_name current_col, enum Game_state game_state);
 /**********************************************************************************************************************
  *  LOCAL MACROS CONSTANT\FUNCTION
  *********************************************************************************************************************/
@@ -750,6 +764,101 @@ Player player = {SCREEN_WIDTH / 2 - PLAYER_WIDTH / 2, SCREEN_HEIGHT - PLAYER_HEI
 /**********************************************************************************************************************
  *  GLOBAL FUNCTIONS
  *********************************************************************************************************************/
+
+// Initialize the GPIO module PORTF and interrupt module
+void init_GPIO_interrupt(void)
+{
+    // Enable PORTF
+    SYSCTL_RCGCGPIO_R |= SYSCTL_RCGCGPIO_R5;
+    
+    // Enable the Move Left and Move Right buttons
+    GPIO_PORTF_DIR_R &= ~(1 << MOVE_LEFT_BUTTON_PIN);
+    GPIO_PORTF_DIR_R &= ~(1 << MOVE_RIGHT_BUTTON_PIN);
+    GPIO_PORTF_DEN_R |= (1 << MOVE_LEFT_BUTTON_PIN);
+    GPIO_PORTF_DEN_R |= (1 << MOVE_RIGHT_BUTTON_PIN);
+    
+    // Enable internal pull-up resistors for the buttons
+    GPIO_PORTF_PUR_R |= (1 << MOVE_LEFT_BUTTON_PIN);
+    GPIO_PORTF_PUR_R |= (1 << MOVE_RIGHT_BUTTON_PIN);
+    
+    // Configure the buttons to trigger interrupts on the falling edge
+    GPIO_PORTF_IS_R &= ~(1 << MOVE_LEFT_BUTTON_PIN);
+    GPIO_PORTF_IS_R &= ~(1 << MOVE_RIGHT_BUTTON_PIN);
+    GPIO_PORTF_IBE_R &= ~(1 << MOVE_LEFT_BUTTON_PIN);
+    GPIO_PORTF_IBE_R &= ~(1 << MOVE_RIGHT_BUTTON_PIN);
+    GPIO_PORTF_IEV_R &= ~(1 << MOVE_LEFT_BUTTON_PIN);
+    GPIO_PORTF_IEV_R &= ~(1 << MOVE_RIGHT_BUTTON_PIN);
+    GPIO_PORTF_ICR_R |= (1 << MOVE_LEFT_BUTTON_PIN);
+    GPIO_PORTF_ICR_R |= (1 << MOVE_RIGHT_BUTTON_PIN);
+    GPIO_PORTF_IM_R |= (1 << MOVE_LEFT_BUTTON_PIN);
+    GPIO_PORTF_IM_R |= (1 << MOVE_RIGHT_BUTTON_PIN);
+    
+    // Enable the interrupt for PORTF
+    NVIC_EN0_R |= (1 << (INT_GPIOF - 16));
+}
+
+// Draw the arrow indicator for the current column
+void draw_arrow_indicator(enum Cols_name current_col)
+{
+    int x = current_col * CELL_WIDTH + 3;
+    int y = 10;
+	  Nokia5110_ClearBuffer();
+	  Nokia5110_DisplayBuffer();
+    Nokia5110_PrintBMP(x, y, arrow, 0);
+	  Nokia5110_DisplayBuffer();
+
+}
+
+
+void draw_board_with_indicator(position_state_t board[ROWS_NUM][COLS_NUM], enum Cols_name current_col, enum Game_state game_state)
+{
+	
+    // Draw the board as usual
+    draw_board(board, current_col, game_state);
+    
+    // Draw the arrow indicator
+    draw_arrow_indicator(current_col);
+}
+
+// Interrupt handler for PORTF
+void PortF_Handler(void)
+{
+    // Check if the move left button was pressed
+    if (GPIO_PORTF_RIS_R & (1 << MOVE_LEFT_BUTTON_PIN))
+    {
+        // Clear the interrupt flag
+        GPIO_PORTF_ICR_R |= (1 << MOVE_LEFT_BUTTON_PIN);
+        
+        // Move the player left
+        move_left();
+        
+        // Update the current column name
+        if (current_col > A)
+        {
+            current_col--;
+        }
+				draw_board_with_indicator(board,current_col,1);
+
+    }
+    
+    // Check if the move right button was pressed
+    if (GPIO_PORTF_RIS_R & (1 << MOVE_RIGHT_BUTTON_PIN))
+    {
+        // Clear the interrupt flag
+        GPIO_PORTF_ICR_R |= (1 << MOVE_RIGHT_BUTTON_PIN);
+        
+        // Move the player right
+        move_right();
+        
+        // Update the current column name
+        if (current_col < G)
+        {
+            current_col++;
+        }
+				draw_board_with_indicator(board,current_col,1);
+
+    }
+}
 
 void game_Init(void)
 {
