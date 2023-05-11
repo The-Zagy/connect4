@@ -1385,6 +1385,13 @@ void endScreen(){
 		Nokia5110_OutString(turn%2==0?"X":"O");
 		 Nokia5110_SetCursor(3,2);
 		 Nokia5110_OutString("wins!");
+		 Delay100ms(15);
+		 Nokia5110_SetCursor(1,4);
+		 Nokia5110_OutString("GAME OVER");
+		 Delay100ms(5);
+		 Nokia5110_SetCursor(1,4);
+			 Nokia5110_OutString("        ");	
+			Delay100ms(5);		
 		 Nokia5110_SetCursor(1,4);
 		 Nokia5110_OutString("GAME OVER");
    }
