@@ -399,8 +399,8 @@
       <Focus>1</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1350</TopLine>
-      <CurrentLine>1360</CurrentLine>
+      <TopLine>1323</TopLine>
+      <CurrentLine>1331</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\HAL\src\connect4.c</PathWithFileName>
       <FilenameWithoutPath>connect4.c</FilenameWithoutPath>
@@ -599,7 +599,7 @@
       <Focus>1</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>58</TopLine>
+      <TopLine>59</TopLine>
       <CurrentLine>64</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MCAL\PORT\Src\Port.c</PathWithFileName>

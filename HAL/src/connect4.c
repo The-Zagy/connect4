@@ -1113,6 +1113,12 @@ void startingScreen()
 	Nokia5110_DisplayBuffer();
 	Nokia5110_SetCursor(0,5);
 	Nokia5110_OutString("Welcome :D!");	
+	Delay100ms(7);
+	Nokia5110_SetCursor(0,5);
+	Nokia5110_OutString("           ");	
+	Delay100ms(7);
+	Nokia5110_SetCursor(0,5);
+	Nokia5110_OutString("Welcome :D!");	
 	Delay100ms(40);
 	for(w=0 ; w<7 ; w++)
 	{
