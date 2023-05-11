@@ -76,7 +76,6 @@ void endScreen();
 unsigned int seed = 25 ; 
 
 int r = 0 , rr = 0 , uturn = 0 , i;
-char board1[(ROWS_NUM * COLS_NUM)+1];
 int turn=0, done = 0;
 
 
