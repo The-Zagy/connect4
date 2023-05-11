@@ -21,19 +21,17 @@ APP\main.c(20): warning:  #223-D: function "endScreen" declared implicitly
         endScreen();
 APP\main.c: 3 warnings, 0 errors
 compiling connect4.c...
-HAL\src\connect4.c(63): warning:  #1295-D: Deprecated declaration endScreen - give arg types
+HAL\src\connect4.c(64): warning:  #1295-D: Deprecated declaration endScreen - give arg types
   void endScreen();
 HAL\src\connect4.c(1063): warning:  #188-D: enumerated type mixed with another type
                                 draw_board_with_indicator(board,current_col,1);
 HAL\src\connect4.c(1081): warning:  #188-D: enumerated type mixed with another type
                                 draw_board_with_indicator(board,current_col,1);
-HAL\src\connect4.c(1088): warning:  #550-D: variable "mode" was set but never used
-        int mode ; 
-HAL\src\connect4.c(1207): warning:  #186-D: pointless comparison of unsigned integer with zero
+HAL\src\connect4.c(1211): warning:  #186-D: pointless comparison of unsigned integer with zero
     if (col_num >= COLS_NUM || col_num < 0 || row_num >= ROWS_NUM || row_num < 0)
-HAL\src\connect4.c(1230): warning:  #111-D: statement is unreachable
+HAL\src\connect4.c(1234): warning:  #111-D: statement is unreachable
     return FALSE_t;
-HAL\src\connect4.c: 6 warnings, 0 errors
+HAL\src\connect4.c: 5 warnings, 0 errors
 compiling connect4_Lcfg.c...
 compiling ISRs.c...
 HAL\src\ISRs.c(55): warning:  #223-D: function "move_right" declared implicitly
@@ -67,10 +65,5 @@ LIBRARIES\CpuDriver\src\cpu_driver.c(61): warning:  #1267-D: Implicit physical r
         );
 LIBRARIES\CpuDriver\src\cpu_driver.c: 1 warning, 0 errors
 linking...
-Program Size: Code=5512 RO-data=8492 RW-data=136 ZI-data=1912  
-".\SpaceInvaders.axf" - 0 Error(s), 19 Warning(s).
-axf" - 1 Error(s), 18 Warning(s).
-Target not created
-d 2 error messages.
-".\SpaceInvaders.axf" - 2 Error(s), 18 Warning(s).
-Target not created
+Program Size: Code=5624 RO-data=8492 RW-data=136 ZI-data=1912  
+".\SpaceInvaders.axf" - 0 Error(s), 18 Warning(s).

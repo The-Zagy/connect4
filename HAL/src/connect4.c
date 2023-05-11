@@ -56,6 +56,7 @@ void draw_board_with_indicator(position_state_t board[ROWS_NUM][COLS_NUM], enum 
 
 void Delay100ms(unsigned long count);
 void UARTB_init(void);
+void UARTB_OutChar( char data);
 int select_mode(void); 
 void startingScreen(void);
 void PortF_Init(void);
@@ -1093,10 +1094,14 @@ void game_Init(void)
 	mode = select_mode(); 
 	srand(seed);
 	Nokia5110_Clear();
+	if(mode)
+	{
+	r = (rand()%9)+'0';
+	UARTB_OutChar(r);
   Port_Init(&Move_Right_Button);
   Port_Init(&Move_Left_Button);
   IntCtrl_EnableIRQ(GPIO_PortF_IRQn);
-}
+}}
 
 void startingScreen()
 {
@@ -1346,6 +1351,12 @@ void UARTB_init()
 	UART1_CC_R = 0 ;
 	UART1_CTL_R |= (1<<0) | (1<<8)| (1<<9);
 
+}
+
+void UARTB_OutChar( char data){
+// as part of Lab 11, modify this program to use UART0 instead of UART1
+  while((UART1_FR_R&(1<<5)) != 0);
+  UART1_DR_R = data;
 }
 
 void PortF_Init(void){ volatile unsigned long delay;

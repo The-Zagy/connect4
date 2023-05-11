@@ -61,7 +61,7 @@ void Port_Init( const Port_ConfigType* ConfigPtr)
 			x=0;
 			SET_BIT_PERIPH_BAND(SYSCTRL->GPIOHBCTL,ConfigPtr->PortType);
 	
-			ConfigPtr->GPIOx->GPIOLOCK = GPIO_LOCKKEY;
+  		ConfigPtr->GPIOx->GPIOLOCK = GPIO_LOCKKEY;
 			SET_BIT_PERIPH_BAND(ConfigPtr->GPIOx->GPIOCR,ConfigPtr->PortType);
 			ConfigPtr->GPIOx->GPIOLOCK = GPIO_UNLOCKKEY;
 	
