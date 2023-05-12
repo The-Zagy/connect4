@@ -10,14 +10,14 @@ int main(void)
   TExaS_Init(SSI0_Real_Nokia5110_Scope); // set system clock to 80 MHz
   Nokia5110_Init();
   Nokia5110_ClearBuffer();
-   game_Init();
+  game_Init();
   //  Draw the player
   // Nokia5110_PrintBMP(20, 20, empty_cell, 0);
   // Nokia5110_DisplayBuffer(); // draw buffer
   // Nokia5110_PrintBMP(20, 20, PlayerShip0, 0);
   // Nokia5110_DisplayBuffer(); // draw buffer
   draw_board(board, 3, 1);
-	endScreen();
+  endScreen();
 
   // Game loop
   while (1)

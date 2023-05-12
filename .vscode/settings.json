@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "connect4.h": "c",
-        "mcu_hw.h": "c"
+        "mcu_hw.h": "c",
+        "nokia5110.h": "c"
     }
 }

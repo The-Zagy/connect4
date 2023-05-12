@@ -11,6 +11,17 @@
 #define PLAYER_WIDTH 18
 #define PLAYER_HEIGHT 8
 
+extern Port_ConfigType Move_Right_Button;
+extern Port_ConfigType Move_Left_Button;
+extern Port_ConfigType Action_Button;
+
+extern GPIO_EXTI_ConfigType EXTI_Right_Button;
+extern GPIO_EXTI_ConfigType EXTI_Left_Button;
+extern GPIO_EXTI_ConfigType EXTI_Action_Button;
+
+extern IntCtr_Config Int_Right_Button;
+extern IntCtr_Config Int_Left_Button;
+extern IntCtr_Config Int_Action_Button;
 // Define a struct to store player position
 typedef struct
 {

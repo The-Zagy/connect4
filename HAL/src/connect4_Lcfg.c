@@ -31,7 +31,7 @@ Port_ConfigType Move_Right_Button =
 		PORTF,
 		PF0,
 		DIGITAL_PIN,
-		LOW,
+		HIGH,
 		INPUT,
 		PULL_UP,
 		R4R
@@ -41,14 +41,53 @@ Port_ConfigType Move_Left_Button =
 	{
 		GPIOF,
 		PORTF,
-		PF3,
+		PF4,
 		DIGITAL_PIN,
-		LOW,
+		HIGH,
 		INPUT,
 		PULL_UP,
 		R4R
 
 };
+
+Port_ConfigType Action_Button =
+	{
+		GPIOD,
+		PORTD,
+		PD0,
+		DIGITAL_PIN,
+		HIGH,
+		INPUT,
+		PULL_UP,
+		R4R
+
+};
+
+GPIO_EXTI_ConfigType EXTI_Right_Button =
+	{
+		GPIOF,
+		PF0,
+		EDGE_SENSITIVE,
+		EDGE_CONTROLLED,
+		FALLING_LOW,
+		GPIO_PortF_IRQn};
+
+GPIO_EXTI_ConfigType EXTI_Left_Button =
+	{
+		GPIOF,
+		PF4,
+		EDGE_SENSITIVE,
+		EDGE_CONTROLLED,
+		FALLING_LOW,
+		GPIO_PortF_IRQn};
+GPIO_EXTI_ConfigType EXTI_Action_Button =
+	{
+		GPIOD,
+		PD0,
+		EDGE_SENSITIVE,
+		EDGE_CONTROLLED,
+		FALLING_LOW,
+		GPIO_PortD_IRQn};
 
 /**********************************************************************************************************************
  *  LOCAL FUNCTION PROTOTYPES
