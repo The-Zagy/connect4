@@ -3,7 +3,7 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
-D:\collage\connect4\SpaceInvaders.uvproj
+C:\Users\Azzam\projects\connect4\connect4\SpaceInvaders.uvproj
 Project File Date:  05/15/2023
 
 <h2>Output:</h2>
@@ -13,27 +13,27 @@ compiling Nokia5110.c...
 assembling random.s...
 compiling TExaS.c...
 compiling main.c...
-APP\main.c(30): warning:  #188-D: enumerated type mixed with another type
+APP\main.c(20): warning:  #188-D: enumerated type mixed with another type
+    select_mode(1);
+APP\main.c(28): warning:  #188-D: enumerated type mixed with another type
+        game_mode = (game_mode + 1) % 2;
+APP\main.c(56): warning:  #188-D: enumerated type mixed with another type
         cur_col = (cur_col + 1) % 7;
-APP\main.c(33): warning:  #188-D: enumerated type mixed with another type
-        draw_board(board, cur_col, 1);
-APP\main.c(42): warning:  #188-D: enumerated type mixed with another type
-        draw_board(board, cur_col, 1);
-APP\main.c(11): warning:  #177-D: variable "game_mode" was declared but never referenced
-    game_mode_t game_mode = MULTI_PLAYER;
-APP\main.c: 4 warnings, 0 errors
+APP\main.c: 3 warnings, 0 errors
 compiling connect4.c...
 HAL\src\connect4.c(66): warning:  #1295-D: Deprecated declaration endScreen - give arg types
   void endScreen();
-HAL\src\connect4.c(7120): warning:  #188-D: enumerated type mixed with another type
+HAL\src\connect4.c(1137): warning:  #188-D: enumerated type mixed with another type
       draw_board_with_indicator(board, current_col, 1);
-HAL\src\connect4.c(7134): warning:  #188-D: enumerated type mixed with another type
+HAL\src\connect4.c(1151): warning:  #188-D: enumerated type mixed with another type
       draw_board_with_indicator(board, current_col, 1);
-HAL\src\connect4.c(7251): warning:  #186-D: pointless comparison of unsigned integer with zero
+HAL\src\connect4.c(1188): warning:  #167-D: argument of type "const unsigned char *" is incompatible with parameter of type "const char *"
+    Nokia5110_DrawFullImage(logo);
+HAL\src\connect4.c(1225): warning:  #186-D: pointless comparison of unsigned integer with zero
     if (col_num >= COLS_NUM || col_num < 0 || row_num >= ROWS_NUM || row_num < 0)
-HAL\src\connect4.c(7274): warning:  #111-D: statement is unreachable
+HAL\src\connect4.c(1248): warning:  #111-D: statement is unreachable
     return FALSE_t;
-HAL\src\connect4.c: 5 warnings, 0 errors
+HAL\src\connect4.c: 6 warnings, 0 errors
 compiling connect4_Lcfg.c...
 compiling ISRs.c...
 compiling Dio.c...
@@ -62,9 +62,13 @@ LIBRARIES\CpuDriver\src\cpu_driver.c(61): warning:  #1267-D: Implicit physical r
         );
 LIBRARIES\CpuDriver\src\cpu_driver.c: 1 warning, 0 errors
 linking...
-Program Size: Code=5304 RO-data=8492 RW-data=208 ZI-data=1680  
+Program Size: Code=5628 RO-data=2508 RW-data=204 ZI-data=1684  
 ".\SpaceInvaders.axf" - 0 Error(s), 17 Warning(s).
-rrors
-linking...
-Program Size: Code=5304 RO-data=8492 RW-data=208 ZI-data=1680  
-".\SpaceInvaders.axf" - 0 Error(s), 18 Warning(s).
+ warning, 0 errors
+".\SpaceInvaders.axf" - 1 Error(s), 17 Warning(s).
+Target not created
+ Error(s), 18 Warning(s).
+18 Warning(s).
+aceInvaders.axf" - 0 Error(s), 18 Warning(s).
+208 ZI-data=1680  
+".\SpaceInvaders.axf" - 0 Error(s), 19 Warning(s).

@@ -49,9 +49,9 @@ typedef enum Cols_name
 typedef enum Game_state
 {
   GAME_SELECT_MODE,
-  GAME_START,
   GAME_PLAYER1_TURN,
   GAME_PLAYER2_TURN,
+  GAME_START,
   GAME_FINISHED
 } game_state_t;
 
@@ -84,4 +84,5 @@ void game_Init(void);
 void starting_screen(void);
 void select_mode(game_mode_t mode);
 bool_t insert_token(position_state_t board[ROWS_NUM][COLS_NUM], position_state_t state, enum Cols_name col_num, unsigned row_num);
+bool_t check_for_winner(position_state_t board[ROWS_NUM][COLS_NUM], position_state_t piece);
 #endif
