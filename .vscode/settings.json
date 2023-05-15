@@ -1,7 +1,11 @@
 {
     "files.associations": {
+        "*.ts": "typescript",
         "connect4.h": "c",
         "mcu_hw.h": "c",
-        "nokia5110.h": "c"
+        "nokia5110.h": "c",
+        "intctrl.h": "c",
+        "intctrl_cfg.h": "c",
+        "intctrl_types.h": "c"
     }
 }

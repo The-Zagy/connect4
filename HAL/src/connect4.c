@@ -47,7 +47,7 @@ position_state_t board[ROWS_NUM][COLS_NUM];
  * insert new position state in certian column, and row number is managed by gravity [first empty row in this column], the row_num state from which row start searching for correct position in recursive
  * return TRUE if inserted successfully
  */
-bool_t insertToken(position_state_t board[ROWS_NUM][COLS_NUM], position_state_t state, enum Cols_name col_num, unsigned row_num);
+bool_t insert_token(position_state_t board[ROWS_NUM][COLS_NUM], position_state_t state, enum Cols_name col_num, unsigned row_num);
 bool_t check_for_winner(position_state_t board[ROWS_NUM][COLS_NUM], position_state_t piece);
 void draw_board(position_state_t board[ROWS_NUM][COLS_NUM], enum Cols_name arrow_position, enum Game_state game_state);
 void init_GPIO_interrupt(void);
@@ -57,8 +57,8 @@ void draw_board_with_indicator(position_state_t board[ROWS_NUM][COLS_NUM], enum 
 void Delay100ms(unsigned long count);
 void UARTB_init(void);
 void UARTB_OutChar(char data);
-int select_mode(void);
-void startingScreen(void);
+void select_mode(game_mode_t mode);
+void starting_screen(void);
 void PortF_Init(void);
 void srand(unsigned int seed);
 void endScreen();
@@ -7080,7 +7080,8 @@ void init_GPIO_interrupt(void)
   // Enable the interrupt for PORTF
   NVIC_EN0_R |= (1 << (INT_GPIOF - 16));
 }
-
+int move_right_flag = 0;
+int move_left_flag = 0;
 // Draw the arrow indicator for the current column
 void draw_arrow_indicator(enum Cols_name current_col)
 {
@@ -7111,9 +7112,6 @@ void PortF_Handler(void)
     // Clear the interrupt flag
     GPIO_PORTF_ICR_R |= (1 << MOVE_LEFT_BUTTON_PIN);
 
-    // Move the player left
-    move_left();
-
     // Update the current column name
     if (current_col > A)
     {
@@ -7128,9 +7126,6 @@ void PortF_Handler(void)
     // Clear the interrupt flag
     GPIO_PORTF_ICR_R |= (1 << MOVE_RIGHT_BUTTON_PIN);
 
-    // Move the player right
-    move_right();
-
     // Update the current column name
     if (current_col < G)
     {
@@ -7142,32 +7137,32 @@ void PortF_Handler(void)
 
 void game_Init(void)
 {
-  int mode;
+  // int mode;
   Port_Init(&Move_Right_Button);
   Port_Init(&Move_Left_Button);
-  Port_Init(&Action_Button);
+  // Port_Init(&Action_Button);
 
   Port_EXTI_Init(&EXTI_Right_Button);
   Port_EXTI_Init(&EXTI_Left_Button);
-  Port_EXTI_Init(&EXTI_Action_Button);
+  // Port_EXTI_Init(&EXTI_Action_Button);
 
   IntCrtl_Init(&Int_Right_Button);
   IntCrtl_Init(&Int_Left_Button);
-  IntCrtl_Init(&Int_Action_Button);
-  startingScreen();
-  mode = select_mode();
-  srand(seed);
+  // IntCrtl_Init(&Int_Action_Button);
+  // startingScreen();
+  // mode = select_mode();
+  // srand(seed);
   Nokia5110_Clear();
-  if (mode)
-  {
-    r = (rand() % 9) + '0';
-    UARTB_OutChar(r);
+  // if (mode)
+  // {
+  //   r = (rand() % 9) + '0';
+  //   UARTB_OutChar(r);
 
-    IntCtrl_EnableIRQ(GPIO_PortF_IRQn);
-  }
+  //   IntCtrl_EnableIRQ(GPIO_PortF_IRQn);
+  // }
 }
 
-void startingScreen()
+void starting_screen(void)
 {
   int w;
   Random_Init(1); // if use random function
@@ -7192,9 +7187,9 @@ void startingScreen()
   }
 }
 
-int select_mode()
-{ // here is selecting if the mode is P1 VS AI or PI vs P2
-  int k = 0;
+void select_mode(game_mode_t mode)
+{ // here is selecting if the mode is P1 VS AI or P1 vs P2
+  int k = 2;
   Nokia5110_SetCursor(0, 0);
   Nokia5110_OutString("select");
   Nokia5110_SetCursor(7, 0);
@@ -7206,77 +7201,52 @@ int select_mode()
   Nokia5110_SetCursor(0, k + 2);
   Nokia5110_OutString(">>");
 
-  while (1)
-  {
-    SW1 = GPIO_PORTF_DATA_R & 0x10; // read PF4 into SW1
-    if (!SW1)
-    {
-      while (!(GPIO_PORTF_DATA_R & 0x10))
-      {
-        Delay100ms(1);
-      }
-      Nokia5110_SetCursor(0, k + 2);
-      Nokia5110_OutString("  ");
-      k += 2;
-      if (k > 2)
-        k = 0;
-      Nokia5110_SetCursor(0, k + 2);
-      Nokia5110_OutString(">>");
-    }
-    SW2 = GPIO_PORTF_DATA_R & 0x01; // read PF0 into SW2
-    Delay100ms(1);
-    if (!SW2)
-    {
-      while (!(GPIO_PORTF_DATA_R & 0x01))
-      {
-        Delay100ms(1);
-        seed++;
-      }
-      Nokia5110_SetCursor(3, k + 2);
-      Nokia5110_OutString("        ");
-      Delay100ms(5);
-      Nokia5110_SetCursor(3, k + 2);
-      Nokia5110_OutString(k ? "P1 VS P2" : "P1 VS AI");
-      Delay100ms(5);
-      Nokia5110_SetCursor(3, k + 2);
-      Nokia5110_OutString("        ");
-      Delay100ms(5);
-      Nokia5110_SetCursor(3, k + 2);
-      Nokia5110_OutString(k ? "P1 VS P2" : "P1 VS AI");
+  // while (1)
+  // {
+  //   SW1 = GPIO_PORTF_DATA_R & 0x10; // read PF4 into SW1
+  //   if (!SW1)
+  //   {
+  //     while (!(GPIO_PORTF_DATA_R & 0x10))
+  //     {
+  //       Delay100ms(1);
+  //     }
+  //     Nokia5110_SetCursor(0, k + 2);
+  //     Nokia5110_OutString("  ");
+  //     k += 2;
+  //     if (k > 2)
+  //       k = 0;
+  //     Nokia5110_SetCursor(0, k + 2);
+  //     Nokia5110_OutString(">>");
+  //   }
+  //   SW2 = GPIO_PORTF_DATA_R & 0x01; // read PF0 into SW2
+  //   Delay100ms(1);
+  //   if (!SW2)
+  //   {
+  //     while (!(GPIO_PORTF_DATA_R & 0x01))
+  //     {
+  //       Delay100ms(1);
+  //       seed++;
+  //     }
+  //     Nokia5110_SetCursor(3, k + 2);
+  //     Nokia5110_OutString("        ");
+  //     Delay100ms(5);
+  //     Nokia5110_SetCursor(3, k + 2);
+  //     Nokia5110_OutString(k ? "P1 VS P2" : "P1 VS AI");
+  //     Delay100ms(5);
+  //     Nokia5110_SetCursor(3, k + 2);
+  //     Nokia5110_OutString("        ");
+  //     Delay100ms(5);
+  //     Nokia5110_SetCursor(3, k + 2);
+  //     Nokia5110_OutString(k ? "P1 VS P2" : "P1 VS AI");
 
-      break;
-    }
-    seed++;
-  }
-  return k;
+  //     break;
+  //   }
+  //   seed++;
+  // }
+  // return k;
 }
 
-void draw_player(Player p)
-{
-}
-
-// Clear the player from the screen
-void clear_player(Player p)
-{
-}
-
-// Move the player left
-void move_left(void)
-{
-  clear_player(player);
-  player.x -= 1;
-  draw_player(player);
-}
-
-// Move the player right
-void move_right(void)
-{
-  clear_player(player);
-  player.x += 1;
-  draw_player(player);
-}
-
-bool_t insertToken(position_state_t board[ROWS_NUM][COLS_NUM], position_state_t state, enum Cols_name col_num, unsigned row_num)
+bool_t insert_token(position_state_t board[ROWS_NUM][COLS_NUM], position_state_t state, enum Cols_name col_num, unsigned row_num)
 {
   // don't go out of scope
   if (col_num >= COLS_NUM || col_num < 0 || row_num >= ROWS_NUM || row_num < 0)
@@ -7300,7 +7270,7 @@ bool_t insertToken(position_state_t board[ROWS_NUM][COLS_NUM], position_state_t 
   }
   else
   {
-    return insertToken(board, state, col_num, row_num + 1);
+    return insert_token(board, state, col_num, row_num + 1);
   }
   return FALSE_t;
 }

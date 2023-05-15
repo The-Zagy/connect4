@@ -33,6 +33,8 @@
 
 extern Port_ConfigType Move_Right_Button;
 extern Port_ConfigType Move_Left_Button;
+extern int move_right_flag;
+extern int move_left_flag;
 /**********************************************************************************************************************
  *  LOCAL FUNCTION PROTOTYPES
  *********************************************************************************************************************/
@@ -47,18 +49,18 @@ extern Port_ConfigType Move_Left_Button;
 void GPIOPortF_Handler(void)
 {
 	Nokia5110_ClearBuffer();
-	Nokia5110_DisplayBuffer(); // draw buffer
+	// Nokia5110_DisplayBuffer(); // draw buffer
 
 	if (Move_Right_Button.GPIOx->GPIORIS & (1 << Move_Right_Button.ChannelId))
 	{ // s1 pressed
 		SET_BIT_PERIPH_BAND(Move_Right_Button.GPIOx->GPIOICR, Move_Right_Button.ChannelId);
 		// move_right();
-		// move_RightFlage = True;
+		move_right_flag = 1;
 	}
 	else if (Move_Left_Button.GPIOx->GPIORIS & (1 << Move_Left_Button.ChannelId))
 	{ // s3 pressed
 		SET_BIT_PERIPH_BAND(Move_Left_Button.GPIOx->GPIOICR, Move_Left_Button.ChannelId);
-		// move_left();
+		move_left_flag = 1;
 	}
 }
 
@@ -76,7 +78,6 @@ void GPIOPortD_Handler(void)
 	else if (Move_Left_Button.GPIOx->GPIORIS & (1 << Move_Left_Button.ChannelId))
 	{ // s3 pressed
 		SET_BIT_PERIPH_BAND(Move_Left_Button.GPIOx->GPIOICR, Move_Left_Button.ChannelId);
-		// move_left();
 	}
 }
 /******************************************************************************

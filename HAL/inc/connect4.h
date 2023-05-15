@@ -1,4 +1,5 @@
 #ifndef CONNTECT_4_H_
+#include "../MCAL/PORT/Inc/Port_Cfg.h"
 #define CONNTECT_4_H_
 #define ROWS_NUM 6
 #define COLS_NUM 7
@@ -60,15 +61,19 @@ typedef enum Position_state
   PLAYER2_SLOT
 } position_state_t;
 
+typedef enum Game_mode
+{
+  SINGLE_PLAYER,
+  MULTI_PLAYER
+} game_mode_t;
+
 extern Player player;
 
 extern const unsigned char PlayerShip0[];
 
 void draw_board(position_state_t board[ROWS_NUM][COLS_NUM], enum Cols_name arrow_position, enum Game_state game_state);
-void draw_player(Player p);
-void clear_player(Player p);
-void move_left(void);
-void move_right(void);
 void game_Init(void);
-
+void starting_screen(void);
+void select_mode(game_mode_t mode);
+bool_t insert_token(position_state_t board[ROWS_NUM][COLS_NUM], position_state_t state, enum Cols_name col_num, unsigned row_num);
 #endif

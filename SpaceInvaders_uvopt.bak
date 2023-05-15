@@ -347,7 +347,7 @@
 
   <Group>
     <GroupName>APP</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -360,7 +360,7 @@
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>1</TopLine>
-      <CurrentLine>23</CurrentLine>
+      <CurrentLine>21</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\APP\main.c</PathWithFileName>
       <FilenameWithoutPath>main.c</FilenameWithoutPath>
@@ -397,10 +397,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>1</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>50</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1350</TopLine>
-      <CurrentLine>1360</CurrentLine>
+      <TopLine>7055</TopLine>
+      <CurrentLine>7078</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\HAL\src\connect4.c</PathWithFileName>
       <FilenameWithoutPath>connect4.c</FilenameWithoutPath>
@@ -599,7 +599,7 @@
       <Focus>1</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>58</TopLine>
+      <TopLine>59</TopLine>
       <CurrentLine>64</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MCAL\PORT\Src\Port.c</PathWithFileName>

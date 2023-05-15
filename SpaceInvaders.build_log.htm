@@ -3,8 +3,8 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
-C:\connect4\SpaceInvaders.uvproj
-Project File Date:  05/11/2023
+D:\collage\connect4\SpaceInvaders.uvproj
+Project File Date:  05/15/2023
 
 <h2>Output:</h2>
 Rebuild target 'SpaceInvaders'
@@ -13,32 +13,35 @@ compiling Nokia5110.c...
 assembling random.s...
 compiling TExaS.c...
 compiling main.c...
-APP\main.c(19): warning:  #188-D: enumerated type mixed with another type
-    draw_board(board, 3, 1);
-APP\main.c(19): warning:  #188-D: enumerated type mixed with another type
-    draw_board(board, 3, 1);
-APP\main.c(20): warning:  #223-D: function "endScreen" declared implicitly
-        endScreen();
-APP\main.c: 3 warnings, 0 errors
+APP\main.c(21): warning:  #188-D: enumerated type mixed with another type
+    draw_board(board, cur_cell, 1);
+APP\main.c(21): warning:  #188-D: enumerated type mixed with another type
+    draw_board(board, cur_cell, 1);
+APP\main.c(33): warning:  #188-D: enumerated type mixed with another type
+        draw_board(board, cur_cell, 1);
+APP\main.c(33): warning:  #188-D: enumerated type mixed with another type
+        draw_board(board, cur_cell, 1);
+APP\main.c(41): warning:  #188-D: enumerated type mixed with another type
+        draw_board(board, cur_cell, 1);
+APP\main.c(41): warning:  #188-D: enumerated type mixed with another type
+        draw_board(board, cur_cell, 1);
+APP\main.c(11): warning:  #177-D: variable "game_mode" was declared but never referenced
+    game_mode_t game_mode = SINGLE_PLAYER;
+APP\main.c: 7 warnings, 0 errors
 compiling connect4.c...
 HAL\src\connect4.c(64): warning:  #1295-D: Deprecated declaration endScreen - give arg types
   void endScreen();
-HAL\src\connect4.c(1063): warning:  #188-D: enumerated type mixed with another type
-                                draw_board_with_indicator(board,current_col,1);
-HAL\src\connect4.c(1081): warning:  #188-D: enumerated type mixed with another type
-                                draw_board_with_indicator(board,current_col,1);
-HAL\src\connect4.c(1217): warning:  #186-D: pointless comparison of unsigned integer with zero
+HAL\src\connect4.c(7120): warning:  #188-D: enumerated type mixed with another type
+      draw_board_with_indicator(board, current_col, 1);
+HAL\src\connect4.c(7134): warning:  #188-D: enumerated type mixed with another type
+      draw_board_with_indicator(board, current_col, 1);
+HAL\src\connect4.c(7252): warning:  #186-D: pointless comparison of unsigned integer with zero
     if (col_num >= COLS_NUM || col_num < 0 || row_num >= ROWS_NUM || row_num < 0)
-HAL\src\connect4.c(1240): warning:  #111-D: statement is unreachable
+HAL\src\connect4.c(7275): warning:  #111-D: statement is unreachable
     return FALSE_t;
 HAL\src\connect4.c: 5 warnings, 0 errors
 compiling connect4_Lcfg.c...
 compiling ISRs.c...
-HAL\src\ISRs.c(55): warning:  #223-D: function "move_right" declared implicitly
-                move_right();
-HAL\src\ISRs.c(60): warning:  #223-D: function "move_left" declared implicitly
-                move_left();
-HAL\src\ISRs.c: 2 warnings, 0 errors
 compiling Dio.c...
 MCAL\DIO\Src\Dio.c(62): warning:  #188-D: enumerated type mixed with another type
                                 return GET_BIT(((GPIOA->GPIODATA) + (1 << (2 + ChannelId) )),ChannelId);
@@ -65,5 +68,34 @@ LIBRARIES\CpuDriver\src\cpu_driver.c(61): warning:  #1267-D: Implicit physical r
         );
 LIBRARIES\CpuDriver\src\cpu_driver.c: 1 warning, 0 errors
 linking...
-Program Size: Code=5724 RO-data=8492 RW-data=136 ZI-data=1912  
-".\SpaceInvaders.axf" - 0 Error(s), 18 Warning(s).
+Program Size: Code=5212 RO-data=8492 RW-data=208 ZI-data=1680  
+".\SpaceInvaders.axf" - 0 Error(s), 20 Warning(s).
+</pre>
+</body>
+</html>
+0 errors
+linking...
+.\SpaceInvaders.axf: Error: L6218E: Undefined symbol insertToken (referred from connect4.o).
+Not enough information to list image symbols.
+Finished: 1 information, 0 warning and 1 error messages.
+".\SpaceInvaders.axf" - 1 Error(s), 21 Warning(s).
+Target not created
+           return GET_BIT(((GPIOD->GPIODATA) + (1 << (2 + ChannelId) )),ChannelId);
+MCAL\DIO\Src\Dio.c(70): warning:  #188-D: enumerated type mixed with another type
+                                return GET_BIT(((GPIOE->GPIODATA) + (1 << (2 + ChannelId) )),ChannelId);
+MCAL\DIO\Src\Dio.c(72): warning:  #188-D: enumerated type mixed with another type
+                                return GET_BIT(((GPIOF->GPIODATA) + (1 << (2 + ChannelId) )),ChannelId);
+MCAL\DIO\Src\Dio.c(76): warning:  #188-D: enumerated type mixed with another type
+        return 0;
+MCAL\DIO\Src\Dio.c: 7 warnings, 0 errors
+compiling IntCtrl.c...
+compiling IntCtrl_Lcfg.c...
+compiling Port.c...
+compiling Port_Lcfg.c...
+compiling Systick.c...
+compiling cpu_driver.c...
+LIBRARIES\CpuDriver\src\cpu_driver.c(61): warning:  #1267-D: Implicit physical register R0 should be defined as a variable
+        );
+LIBRARIES\CpuDriver\src\cpu_driver.c: 1 warning, 0 errors
+".\SpaceInvaders.axf" - 15 Error(s), 15 Warning(s).
+Target not created
