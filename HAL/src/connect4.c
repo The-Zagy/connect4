@@ -42,6 +42,8 @@ enum Cols_name current_col = C;
 
 // Define the game board array
 position_state_t board[ROWS_NUM][COLS_NUM];
+int move_right_flag = 0;
+int move_left_flag = 0;
 
 /**
  * insert new position state in certian column, and row number is managed by gravity [first empty row in this column], the row_num state from which row start searching for correct position in recursive
@@ -7080,8 +7082,6 @@ void init_GPIO_interrupt(void)
   // Enable the interrupt for PORTF
   NVIC_EN0_R |= (1 << (INT_GPIOF - 16));
 }
-int move_right_flag = 0;
-int move_left_flag = 0;
 // Draw the arrow indicator for the current column
 void draw_arrow_indicator(enum Cols_name current_col)
 {
@@ -7189,7 +7189,6 @@ void starting_screen(void)
 
 void select_mode(game_mode_t mode)
 { // here is selecting if the mode is P1 VS AI or P1 vs P2
-  int k = 2;
   Nokia5110_SetCursor(0, 0);
   Nokia5110_OutString("select");
   Nokia5110_SetCursor(7, 0);
@@ -7198,7 +7197,7 @@ void select_mode(game_mode_t mode)
   Nokia5110_OutString("P1 VS AI");
   Nokia5110_SetCursor(3, 4);
   Nokia5110_OutString("P1 VS P2");
-  Nokia5110_SetCursor(0, k + 2);
+  Nokia5110_SetCursor(0, (mode * 2) + 2);
   Nokia5110_OutString(">>");
 
   // while (1)

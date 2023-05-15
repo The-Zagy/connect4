@@ -35,7 +35,7 @@ typedef enum Boolean
   TRUE_t
 } bool_t;
 
-enum Cols_name
+typedef enum Cols_name
 {
   A,
   B,
@@ -45,9 +45,10 @@ enum Cols_name
   F,
   G,
   COL_NOT_VALID = -1
-};
+} cols_name_t;
 typedef enum Game_state
 {
+  GAME_SELECT_MODE,
   GAME_START,
   GAME_PLAYER1_TURN,
   GAME_PLAYER2_TURN,
@@ -66,6 +67,13 @@ typedef enum Game_mode
   SINGLE_PLAYER,
   MULTI_PLAYER
 } game_mode_t;
+
+typedef struct Game_data
+{
+  position_state_t boards[ROWS_NUM][COLS_NUM];
+  game_state_t game_state;
+  game_mode_t game_mode;
+} game_data_t;
 
 extern Player player;
 
