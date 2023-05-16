@@ -8,6 +8,7 @@
 #define AC_GREEN "\x1b[32m"
 #define AC_YELLOW "\x1b[33m"
 
+
 typedef enum Boolean
 {
     FALSE,
@@ -47,7 +48,7 @@ void printGameBoard(position_state_t board[ROWS_NUM][COLS_NUM]);
  * return TRUE if inserted successfully
  */
 bool_t insertToken(position_state_t board[ROWS_NUM][COLS_NUM], position_state_t state, enum Cols_name col_num, size_t row_num);
-
+int ai_player(position_state_t board[ROWS_NUM][COLS_NUM]);
 /**
  * return Cols_name or -1 if not valid input
  */
@@ -108,9 +109,9 @@ int main()
             else if (game_state == GAME_PLAYER2_TURN)
             {
                 puts("PLAYER 2: ");
-                input = getchar();
+                input = ai_player(board);
             }
-            getchar();
+            if (game_state == GAME_PLAYER1_TURN){ getchar();}
             // if valid break out
             parsed_input = parseInput(input);
             if (parsed_input != COL_NOT_VALID)
@@ -203,33 +204,78 @@ bool_t insertToken(position_state_t board[ROWS_NUM][COLS_NUM], position_state_t 
     return FALSE;
 }
 
+int ai_player(position_state_t board[ROWS_NUM][COLS_NUM]) {
+    // Evaluate the current state of the board and make a decision
+    // You can modify this part to implement your desired AI algorithm
+
+    // Check for a winning move
+    for (int col = 0; col < COLS_NUM; col++) {
+        for (int row = 0; row < ROWS_NUM; row++) {
+            if (board[row][col] == 0) {
+                // Check horizontally
+                if (col < COLS_NUM - 3 && board[row][col+1] == board[row][col+2] == board[row][col+3] && board[row][col+1] != 0) {
+                    return col;
+                }
+                // Check vertically
+                if (row < ROWS_NUM - 3 && board[row+1][col] == board[row+2][col] == board[row+3][col] && board[row+1][col] != 0) {
+                    return col;
+                }
+                // Check diagonally (ascending)
+                if (col < COLS_NUM - 3 && row > 2 && board[row-1][col+1] == board[row-2][col+2] == board[row-3][col+3] && board[row-1][col+1] != 0) {
+                    return col;
+                }
+                // Check diagonally (descending)
+                if (col < COLS_NUM - 3 && row < ROWS_NUM - 3 && board[row+1][col+1] == board[row+2][col+2] == board[row+3][col+3] && board[row+1][col+1] != 0) {
+                    return col;
+                }
+            }
+        }
+    }
+
+    // If no winning move is found, make a random valid move
+    int valid_moves[COLS_NUM];
+    int num_valid_moves = 0;
+
+    // Find valid moves
+    for (int col = 0; col < COLS_NUM; col++) {
+        if (board[ROWS_NUM-1][col] == 0) {
+            valid_moves[num_valid_moves] = col;
+            num_valid_moves++;
+        }
+    }
+
+    // Choose a random valid move
+    int random_move_index = rand() % num_valid_moves;
+    return valid_moves[random_move_index];
+}
+
 enum Cols_name parseInput(char c)
 {
-    if (c == 'a' || c == 'A')
+    if (c == 'a' || c == 'A' || c == 0)
     {
         return A;
     }
-    if (c == 'b' || c == 'B')
+    if (c == 'b' || c == 'B' || c == 1)
     {
         return B;
     }
-    if (c == 'c' || c == 'C')
+    if (c == 'c' || c == 'C' || c == 2)
     {
         return C;
     }
-    if (c == 'd' || c == 'D')
+    if (c == 'd' || c == 'D' || c == 3)
     {
         return D;
     }
-    if (c == 'e' || c == 'E')
+    if (c == 'e' || c == 'E' || c == 4)
     {
         return E;
     }
-    if (c == 'f' || c == 'F')
+    if (c == 'f' || c == 'F' || c == 5)
     {
         return F;
     }
-    if (c == 'g' || c == 'G')
+    if (c == 'g' || c == 'G' || c == 6)
     {
         return G;
     }
