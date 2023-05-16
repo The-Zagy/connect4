@@ -3,8 +3,8 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
-C:\Users\Azzam\projects\connect4\connect4\SpaceInvaders.uvproj
-Project File Date:  05/15/2023
+C:\finaltestpro\connect4\SpaceInvaders.uvproj
+Project File Date:  05/16/2023
 
 <h2>Output:</h2>
 Rebuild target 'SpaceInvaders'
@@ -23,17 +23,15 @@ APP\main.c: 3 warnings, 0 errors
 compiling connect4.c...
 HAL\src\connect4.c(66): warning:  #1295-D: Deprecated declaration endScreen - give arg types
   void endScreen();
-HAL\src\connect4.c(1137): warning:  #188-D: enumerated type mixed with another type
+HAL\src\connect4.c(1177): warning:  #188-D: enumerated type mixed with another type
       draw_board_with_indicator(board, current_col, 1);
-HAL\src\connect4.c(1151): warning:  #188-D: enumerated type mixed with another type
+HAL\src\connect4.c(1191): warning:  #188-D: enumerated type mixed with another type
       draw_board_with_indicator(board, current_col, 1);
-HAL\src\connect4.c(1188): warning:  #167-D: argument of type "const unsigned char *" is incompatible with parameter of type "const char *"
-    Nokia5110_DrawFullImage(logo);
-HAL\src\connect4.c(1225): warning:  #186-D: pointless comparison of unsigned integer with zero
+HAL\src\connect4.c(1266): warning:  #186-D: pointless comparison of unsigned integer with zero
     if (col_num >= COLS_NUM || col_num < 0 || row_num >= ROWS_NUM || row_num < 0)
-HAL\src\connect4.c(1248): warning:  #111-D: statement is unreachable
+HAL\src\connect4.c(1289): warning:  #111-D: statement is unreachable
     return FALSE_t;
-HAL\src\connect4.c: 6 warnings, 0 errors
+HAL\src\connect4.c: 5 warnings, 0 errors
 compiling connect4_Lcfg.c...
 compiling ISRs.c...
 compiling Dio.c...
@@ -62,13 +60,9 @@ LIBRARIES\CpuDriver\src\cpu_driver.c(61): warning:  #1267-D: Implicit physical r
         );
 LIBRARIES\CpuDriver\src\cpu_driver.c: 1 warning, 0 errors
 linking...
+Program Size: Code=5880 RO-data=3608 RW-data=208 ZI-data=1680  
+".\SpaceInvaders.axf" - 0 Error(s), 16 Warning(s).
+uDriver\src\cpu_driver.c: 1 warning, 0 errors
+linking...
 Program Size: Code=5628 RO-data=2508 RW-data=204 ZI-data=1684  
 ".\SpaceInvaders.axf" - 0 Error(s), 17 Warning(s).
- warning, 0 errors
-".\SpaceInvaders.axf" - 1 Error(s), 17 Warning(s).
-Target not created
- Error(s), 18 Warning(s).
-18 Warning(s).
-aceInvaders.axf" - 0 Error(s), 18 Warning(s).
-208 ZI-data=1680  
-".\SpaceInvaders.axf" - 0 Error(s), 19 Warning(s).
