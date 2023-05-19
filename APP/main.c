@@ -15,8 +15,9 @@ int main(void)
   Nokia5110_Init();
   Nokia5110_ClearBuffer();
   game_Init();
-   starting_screen();
+  starting_screen();
   Nokia5110_ClearBuffer();
+	Nokia5110_Clear();
   select_mode(1);
 
   while (game_state == GAME_SELECT_MODE)
