@@ -79,10 +79,8 @@ typedef struct Game_data
 bool_t insert_token(position_state_t board[ROWS_NUM][COLS_NUM], position_state_t state, enum Cols_name col_num, unsigned row_num);
 bool_t check_for_winner(position_state_t board[ROWS_NUM][COLS_NUM], position_state_t piece);
 void draw_board(position_state_t board[ROWS_NUM][COLS_NUM], enum Cols_name arrow_position, enum Game_state game_state);
-void init_GPIO_interrupt(void);
 void draw_arrow_indicator(enum Cols_name current_col);
 void draw_board_with_indicator(position_state_t board[ROWS_NUM][COLS_NUM], enum Cols_name current_col, enum Game_state game_state);
-
 void Delay100ms(unsigned long count);
 void select_mode(game_mode_t mode);
 void starting_screen(void);

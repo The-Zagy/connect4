@@ -1,18 +1,3 @@
-
-/**********************************************************************************************************************
- *  FILE DESCRIPTION
- *  -----------------------------------------------------------------------------------------------------------------*/
-/**        \file  FileName.c
- *        \brief
- *
- *      \details
- *
- *
- *********************************************************************************************************************/
-
-/**********************************************************************************************************************
- *  INCLUDES
- *********************************************************************************************************************/
 #include "../tm4c123gh6pm.h"
 #include "../LIBRARIES/common/Std_Types.h"
 #include "../LIBRARIES/CpuDriver/inc/cpu_driver.h"
@@ -29,45 +14,15 @@
 #define ROWS_NUM 6
 #define COLS_NUM 7
 
-// Define a global variable to hold the current column name
-enum Cols_name current_col = C;
-
-// Define the game board array
-position_state_t board[ROWS_NUM][COLS_NUM];
 int move_right_flag = 0;
 int move_left_flag = 0;
 int action_flag = 0;
 int timer_flag = 0;
 
-/**
- * insert new position state in certian column, and row number is managed by gravity [first empty row in this column], the row_num state from which row start searching for correct position in recursive
- * return TRUE if inserted successfully
- */
-
-/**********************************************************************************************************************
- *  LOCAL MACROS CONSTANT\FUNCTION
- *********************************************************************************************************************/
-
-/**********************************************************************************************************************
- *  LOCAL DATA
- *********************************************************************************************************************/
-
-/**********************************************************************************************************************
- *  GLOBAL DATA
- *********************************************************************************************************************/
-unsigned long SW1, SW2; // input from PF4,PF0
-unsigned int seed = 25;
-
-int r = 0, rr = 0, uturn = 0, i;
-int turn = 0;
 int col = 0, row = 0;
 int valid_moves[7];
 int num_valid_moves = 0;
 int random_move_index;
-
-// image of the player's ship
-// includes two blacked out columns on the left and right sides of the image to prevent smearing when moved 2 pixels to the left or right
-// width=18 x height=8
 
 const unsigned char logo[] = {
     0x42,
@@ -353,14 +308,6 @@ const unsigned char logo[] = {
 
 };
 
-const unsigned char PlayerShip0[] = {
-    0x42, 0x4D, 0xD6, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x76, 0x00, 0x00, 0x00, 0x28, 0x00, 0x00, 0x00, 0x12, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x01, 0x00, 0x04, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x60, 0x00, 0x00, 0x00, 0xC4, 0x0E, 0x00, 0x00, 0xC4, 0x0E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x80,
-    0x00, 0x00, 0x00, 0x80, 0x80, 0x00, 0x80, 0x00, 0x00, 0x00, 0x80, 0x00, 0x80, 0x00, 0x80, 0x80, 0x00, 0x00, 0x80, 0x80, 0x80, 0x00, 0xC0, 0xC0, 0xC0, 0x00, 0x00, 0x00, 0xFF, 0x00, 0x00, 0xFF,
-    0x00, 0x00, 0x00, 0xFF, 0xFF, 0x00, 0xFF, 0x00, 0x00, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0xFF, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0x00, 0x00, 0x00, 0x00, 0x00, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0A, 0xAA, 0xAA, 0xAA, 0xAA,
-    0xAA, 0xA0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0A, 0xAA, 0xA0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0A, 0xAA, 0xA0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0xAA, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF};
 const unsigned char empty_cell[] = {
     0x42,
     0x4D,
@@ -2140,18 +2087,6 @@ const unsigned char logo1[] = {
 
 };
 
-/**********************************************************************************************************************
- *  LOCAL FUNCTION PROTOTYPES
- *********************************************************************************************************************/
-
-/**********************************************************************************************************************
- *  LOCAL FUNCTIONS
- *********************************************************************************************************************/
-
-/**********************************************************************************************************************
- *  GLOBAL FUNCTIONS
- *********************************************************************************************************************/
-
 // Draw the arrow indicator for the current column
 void draw_arrow_indicator(enum Cols_name current_col)
 {
@@ -2250,6 +2185,10 @@ void select_mode(game_mode_t mode)
   Nokia5110_OutString(">>");
 }
 
+/**
+ * insert new position state in certian column, and row number is managed by gravity [first empty row in this column], the row_num state from which row start searching for correct position in recursive
+ * return TRUE if inserted successfully
+ */
 bool_t insert_token(position_state_t board[ROWS_NUM][COLS_NUM], position_state_t state, enum Cols_name col_num, unsigned row_num)
 {
   // don't go out of scope
@@ -2322,7 +2261,7 @@ int ai_player(position_state_t board[ROWS_NUM][COLS_NUM])
   // Find valid moves
   for (col = 0; col < COLS_NUM; col++)
   {
-    if (board[ROWS_NUM - 1][col] == 0)
+    if (board[ROWS_NUM - 1][col] == EMPTY)
     {
       valid_moves[num_valid_moves] = col;
       num_valid_moves++;
@@ -2466,102 +2405,3 @@ void endScreen(game_state_t state)
   Nokia5110_OutString("GAME OVER");
   Delay100ms(200);
 }
-/******************************************************************************
- * \Syntax          : Std_ReturnType FunctionName(AnyType parameterName)
- * \Description     : Describe this service
- *
- * \Sync\Async      : Synchronous
- * \Reentrancy      : Non Reentrant
- * \Parameters (in) : parameterName   Parameter Describtion
- * \Parameters (out): None
- * \Return value:   : Std_ReturnType  E_OK
- *                                    E_NOT_OK
- *******************************************************************************/
-
-/**********************************************************************************************************************
- *  END OF FILE: spaceInvaders.c
- *********************************************************************************************************************/
-
-// SpaceInvaders.c
-// Runs on LM4F120/TM4C123
-// Jonathan Valvano and Daniel Valvano
-// This is a starter project for the edX Lab 15
-// In order for other students to play your game
-// 1) You must leave the hardware configuration as defined
-// 2) You must not add/remove any files from the project
-// 3) You must add your code only this this C file
-// I.e., if you wish to use code from sprite.c or sound.c, move that code in this file
-// 4) It must compile with the 32k limit of the free Keil
-
-// April 10, 2014
-// http://www.spaceinvaders.de/
-// sounds at http://www.classicgaming.cc/classics/spaceinvaders/sounds.php
-// http://www.classicgaming.cc/classics/spaceinvaders/playguide.php
-/* This example accompanies the books
-   "Embedded Systems: Real Time Interfacing to Arm Cortex M Microcontrollers",
-   ISBN: 978-1463590154, Jonathan Valvano, copyright (c) 2013
-
-   "Embedded Systems: Introduction to Arm Cortex M Microcontrollers",
-   ISBN: 978-1469998749, Jonathan Valvano, copyright (c) 2013
-
- Copyright 2014 by Jonathan W. Valvano, valvano@mail.utexas.edu
-    You may use, edit, run or distribute this file
-    as long as the above copyright notice remains
- THIS SOFTWARE IS PROVIDED "AS IS".  NO WARRANTIES, WHETHER EXPRESS, IMPLIED
- OR STATUTORY, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF
- MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE APPLY TO THIS SOFTWARE.
- VALVANO SHALL NOT, IN ANY CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL,
- OR CONSEQUENTIAL DAMAGES, FOR ANY REASON WHATSOEVER.
- For more information about my classes, my research, and my books, see
- http://users.ece.utexas.edu/~valvano/
- */
-// ******* Required Hardware I/O connections*******************
-// Slide pot pin 1 connected to ground
-// Slide pot pin 2 connected to PE2/AIN1
-// Slide pot pin 3 connected to +3.3V
-// fire button connected to PE0
-// special weapon fire button connected to PE1
-// 8*R resistor DAC bit 0 on PB0 (least significant bit)
-// 4*R resistor DAC bit 1 on PB1
-// 2*R resistor DAC bit 2 on PB2
-// 1*R resistor DAC bit 3 on PB3 (most significant bit)
-// LED on PB4
-// LED on PB5
-
-// Blue Nokia 5110
-// ---------------
-// Signal        (Nokia 5110) LaunchPad pin
-// Reset         (RST, pin 1) connected to PA7
-// SSI0Fss       (CE,  pin 2) connected to PA3
-// Data/Command  (DC,  pin 3) connected to PA6
-// SSI0Tx        (Din, pin 4) connected to PA5
-// SSI0Clk       (Clk, pin 5) connected to PA2
-// 3.3V          (Vcc, pin 6) power
-// back light    (BL,  pin 7) not connected, consists of 4 white LEDs which draw ~80mA total
-// Ground        (Gnd, pin 8) ground
-
-// Red SparkFun Nokia 5110 (LCD-10168)
-// -----------------------------------
-// Signal        (Nokia 5110) LaunchPad pin
-// 3.3V          (VCC, pin 1) power
-// Ground        (GND, pin 2) ground
-// SSI0Fss       (SCE, pin 3) connected to PA3
-// Reset         (RST, pin 4) connected to PA7
-// Data/Command  (D/C, pin 5) connected to PA6
-// SSI0Tx        (DN,  pin 6) connected to PA5
-// SSI0Clk       (SCLK, pin 7) connected to PA2
-// back light    (LED, pin 8) not connected, consists of 4 white LEDs which draw ~80mA total
-/*#include "Nokia5110.h"
-#include "Random.h"
-#include "TExaS.h"
-#include "config.h"
-
-void DisableInterrupts(void); // Disable interrupts
-void EnableInterrupts(void);  // Enable interrupts
-void Timer2_Init(unsigned long period,void(* Cbk_Ptr)(void));
-void Delay100ms(unsigned long count); // time delay in 0.1 seconds
-unsigned long TimerCount;
-unsigned long Semaphore;
-
-
-*/
