@@ -3,66 +3,52 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
-C:\finaltestpro\connect4\SpaceInvaders.uvproj
-Project File Date:  05/16/2023
+C:\Users\hadho\Desktop\connect4\SpaceInvaders.uvproj
+Project File Date:  05/19/2023
 
 <h2>Output:</h2>
-Rebuild target 'SpaceInvaders'
-assembling startup.s...
-compiling Nokia5110.c...
-assembling random.s...
-compiling TExaS.c...
+Build target 'SpaceInvaders'
 compiling main.c...
 APP\main.c(20): warning:  #188-D: enumerated type mixed with another type
     select_mode(1);
 APP\main.c(28): warning:  #188-D: enumerated type mixed with another type
         game_mode = (game_mode + 1) % 2;
-APP\main.c(56): warning:  #188-D: enumerated type mixed with another type
-        cur_col = (cur_col + 1) % 7;
-APP\main.c: 3 warnings, 0 errors
-compiling connect4.c...
-HAL\src\connect4.c(66): warning:  #1295-D: Deprecated declaration endScreen - give arg types
-  void endScreen();
-HAL\src\connect4.c(1177): warning:  #188-D: enumerated type mixed with another type
+APP\main.c(58): warning:  #223-D: function "ai_player" declared implicitly
+        cur_col=ai_player(board);
+APP\main.c(58): warning:  #188-D: enumerated type mixed with another type
+        cur_col=ai_player(board);
+APP\main.c(64): warning:  #188-D: enumerated type mixed with another type
+       if(game_state != GAME_AI_TURN){ cur_col = (cur_col + 1) % 7; }
+APP\main.c: 5 warnings, 0 errors
+linking...
+Program Size: Code=6660 RO-data=3608 RW-data=224 ZI-data=1984  
+".\SpaceInvaders.axf" - 0 Error(s), 5 Warning(s).
+col = (cur_col + 1) % 7; } else {cur_col=ai_player(board);}
+APP\main.c(62): warning:  #188-D: enumerated type mixed with another type
+       if(game_state != GAME_PLAYER2_TURN){ cur_col = (cur_col + 1) % 7; } else {cur_col=ai_player(board);}
+APP\main.c: 7 warnings, 0 errors
+linking...
+Program Size: Code=6668 RO-data=3608 RW-data=224 ZI-data=1984  
+".\SpaceInvaders.axf" - 0 Error(s), 7 Warning(s).
+arning:  #188-D: enumerated type mixed with another type
       draw_board_with_indicator(board, current_col, 1);
-HAL\src\connect4.c(1191): warning:  #188-D: enumerated type mixed with another type
-      draw_board_with_indicator(board, current_col, 1);
-HAL\src\connect4.c(1266): warning:  #186-D: pointless comparison of unsigned integer with zero
+HAL\src\connect4.c(1270): warning:  #186-D: pointless comparison of unsigned integer with zero
     if (col_num >= COLS_NUM || col_num < 0 || row_num >= ROWS_NUM || row_num < 0)
-HAL\src\connect4.c(1289): warning:  #111-D: statement is unreachable
+HAL\src\connect4.c(1293): warning:  #111-D: statement is unreachable
     return FALSE_t;
 HAL\src\connect4.c: 5 warnings, 0 errors
-compiling connect4_Lcfg.c...
-compiling ISRs.c...
-compiling Dio.c...
-MCAL\DIO\Src\Dio.c(62): warning:  #188-D: enumerated type mixed with another type
-                                return GET_BIT(((GPIOA->GPIODATA) + (1 << (2 + ChannelId) )),ChannelId);
-MCAL\DIO\Src\Dio.c(64): warning:  #188-D: enumerated type mixed with another type
-                                return GET_BIT(((GPIOB->GPIODATA) + (1 << (2 + ChannelId) )),ChannelId);
-MCAL\DIO\Src\Dio.c(66): warning:  #188-D: enumerated type mixed with another type
-                                return GET_BIT(((GPIOC->GPIODATA) + (1 << (2 + ChannelId) )),ChannelId);
-MCAL\DIO\Src\Dio.c(68): warning:  #188-D: enumerated type mixed with another type
-                                return GET_BIT(((GPIOD->GPIODATA) + (1 << (2 + ChannelId) )),ChannelId);
-MCAL\DIO\Src\Dio.c(70): warning:  #188-D: enumerated type mixed with another type
-                                return GET_BIT(((GPIOE->GPIODATA) + (1 << (2 + ChannelId) )),ChannelId);
-MCAL\DIO\Src\Dio.c(72): warning:  #188-D: enumerated type mixed with another type
-                                return GET_BIT(((GPIOF->GPIODATA) + (1 << (2 + ChannelId) )),ChannelId);
-MCAL\DIO\Src\Dio.c(76): warning:  #188-D: enumerated type mixed with another type
-        return 0;
-MCAL\DIO\Src\Dio.c: 7 warnings, 0 errors
-compiling IntCtrl.c...
-compiling IntCtrl_Lcfg.c...
-compiling Port.c...
-compiling Port_Lcfg.c...
-compiling Systick.c...
-compiling cpu_driver.c...
-LIBRARIES\CpuDriver\src\cpu_driver.c(61): warning:  #1267-D: Implicit physical register R0 should be defined as a variable
-        );
-LIBRARIES\CpuDriver\src\cpu_driver.c: 1 warning, 0 errors
 linking...
-Program Size: Code=5880 RO-data=3608 RW-data=208 ZI-data=1680  
-".\SpaceInvaders.axf" - 0 Error(s), 16 Warning(s).
-uDriver\src\cpu_driver.c: 1 warning, 0 errors
-linking...
-Program Size: Code=5628 RO-data=2508 RW-data=204 ZI-data=1684  
-".\SpaceInvaders.axf" - 0 Error(s), 17 Warning(s).
+Program Size: Code=6668 RO-data=3608 RW-data=224 ZI-data=1984  
+".\SpaceInvaders.axf" - 0 Error(s), 12 Warning(s).
+for (int row = 0; row < ROWS_NUM; row++) {
+HAL\src\connect4.c(1321): error:  #268: declaration may not appear after executable statement in block
+      int valid_moves[COLS_NUM];
+HAL\src\connect4.c(1322): error:  #268: declaration may not appear after executable statement in block
+      int num_valid_moves = 0;
+HAL\src\connect4.c(1325): error:  #29: expected an expression
+      for (int col = 0; col < COLS_NUM; col++) {
+HAL\src\connect4.c(1333): error:  #268: declaration may not appear after executable statement in block
+      int random_move_index = rand() % num_valid_moves;
+HAL\src\connect4.c: 5 warnings, 8 errors
+".\SpaceInvaders.axf" - 8 Error(s), 10 Warning(s).
+Target not created

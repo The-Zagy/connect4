@@ -51,6 +51,7 @@ typedef enum Game_state
   GAME_SELECT_MODE,
   GAME_PLAYER1_TURN,
   GAME_PLAYER2_TURN,
+  GAME_AI_TURN,
   GAME_START,
   GAME_FINISHED
 } game_state_t;
@@ -59,7 +60,8 @@ typedef enum Position_state
 {
   EMPTY,
   PLAYER1_SLOT,
-  PLAYER2_SLOT
+  PLAYER2_SLOT,
+  AI_SLOT
 } position_state_t;
 
 typedef enum Game_mode

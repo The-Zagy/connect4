@@ -35,7 +35,9 @@ int main(void)
     {
       // commit mode
       move_right_flag = 0;
+     
       game_state = GAME_PLAYER1_TURN;
+    
     }
   }
 
@@ -50,10 +52,16 @@ int main(void)
     {
       slot = PLAYER2_SLOT;
     }
-    if (move_right_flag == 1)
+    else if (game_state == GAME_AI_TURN)
+    {
+      slot = PLAYER2_SLOT;
+      cur_col=ai_player(board);
+    }
+   
+    if (move_right_flag == 1 )
     {
       // do move right code
-      cur_col = (cur_col + 1) % 7;
+     if(game_state != GAME_AI_TURN){ cur_col = (cur_col + 1) % 7; }
       move_right_flag = 0;
       Nokia5110_ClearBuffer();
       draw_board(board, cur_col, game_state);
@@ -71,14 +79,15 @@ int main(void)
         game_state = GAME_FINISHED;
         return 0;
       };
-      if (game_state == GAME_PLAYER1_TURN)
+      if (game_state == GAME_PLAYER1_TURN )
       {
-        game_state = GAME_PLAYER2_TURN;
+       if(game_mode == MULTI_PLAYER){ game_state = GAME_PLAYER2_TURN;}else{game_state = GAME_AI_TURN;}
       }
       else
       {
         game_state = GAME_PLAYER1_TURN;
       }
+      
       draw_board(board, cur_col, game_state);
     }
 

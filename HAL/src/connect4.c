@@ -50,6 +50,7 @@ int move_left_flag = 0;
  * return TRUE if inserted successfully
  */
 bool_t insert_token(position_state_t board[ROWS_NUM][COLS_NUM], position_state_t state, enum Cols_name col_num, unsigned row_num);
+int ai_player(position_state_t board[ROWS_NUM][COLS_NUM]);
 bool_t check_for_winner(position_state_t board[ROWS_NUM][COLS_NUM], position_state_t piece);
 void draw_board(position_state_t board[ROWS_NUM][COLS_NUM], enum Cols_name arrow_position, enum Game_state game_state);
 void init_GPIO_interrupt(void);
@@ -80,6 +81,10 @@ unsigned int seed = 25;
 
 int r = 0, rr = 0, uturn = 0, i;
 int turn = 0, done = 0;
+int col=0, row=0;
+int valid_moves[7];
+int num_valid_moves = 0;
+int random_move_index;
 
 // image of the player's ship
 // includes two blacked out columns on the left and right sides of the image to prevent smearing when moved 2 pixels to the left or right
@@ -1286,6 +1291,51 @@ bool_t insert_token(position_state_t board[ROWS_NUM][COLS_NUM], position_state_t
     return insert_token(board, state, col_num, row_num + 1);
   }
   return FALSE_t;
+}
+
+int ai_player(position_state_t board[ROWS_NUM][COLS_NUM]) {
+    // Evaluate the current state of the board and make a decision
+    // You can modify this part to implement your desired AI algorithm
+
+    // Check for a winning move
+    for ( col = 0; col < COLS_NUM; col++) {
+        for ( row = 0; row < ROWS_NUM; row++) {
+            if (board[row][col] == 0) {
+                // Check horizontally
+                if (col < COLS_NUM - 3 && board[row][col+1] == board[row][col+2] == board[row][col+3] && board[row][col+1] != 0) {
+                    return col;
+                }
+                // Check vertically
+                if (row < ROWS_NUM - 3 && board[row+1][col] == board[row+2][col] == board[row+3][col] && board[row+1][col] != 0) {
+                    return col;
+                }
+                // Check diagonally (ascending)
+                if (col < COLS_NUM - 3 && row > 2 && board[row-1][col+1] == board[row-2][col+2] == board[row-3][col+3] && board[row-1][col+1] != 0) {
+                    return col;
+                }
+                // Check diagonally (descending)
+                if (col < COLS_NUM - 3 && row < ROWS_NUM - 3 && board[row+1][col+1] == board[row+2][col+2] == board[row+3][col+3] && board[row+1][col+1] != 0) {
+                    return col;
+                }
+            }
+        }
+    }
+
+    // If no winning move is found, make a random valid move
+    //int valid_moves[COLS_NUM];
+    //int num_valid_moves = 0;
+
+    // Find valid moves
+    for ( col = 0; col < COLS_NUM; col++) {
+        if (board[ROWS_NUM-1][col] == 0) {
+            valid_moves[num_valid_moves] = col;
+            num_valid_moves++;
+        }
+    }
+
+    // Choose a random valid move
+     random_move_index = rand() % num_valid_moves;
+    return valid_moves[random_move_index];
 }
 
 bool_t check_for_winner(position_state_t board[ROWS_NUM][COLS_NUM], position_state_t piece)
