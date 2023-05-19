@@ -18,6 +18,7 @@
 #include "../LIBRARIES/COMMON/Mcu_Hw.h"
 #include "../../MCAL/PORT/Inc/Port_Cfg.h"
 #include "../../LIBRARIES/Common/Bit_Math.h"
+#include "connect4.h"
 
 /**********************************************************************************************************************
  *  LOCAL MACROS CONSTANT\FUNCTION
@@ -31,10 +32,7 @@
  *  GLOBAL DATA
  *********************************************************************************************************************/
 
-extern Port_ConfigType Move_Right_Button;
-extern Port_ConfigType Move_Left_Button;
-extern int move_right_flag;
-extern int move_left_flag;
+
 /**********************************************************************************************************************
  *  LOCAL FUNCTION PROTOTYPES
  *********************************************************************************************************************/
@@ -46,9 +44,10 @@ extern int move_left_flag;
 /**********************************************************************************************************************
  *  GLOBAL FUNCTIONS
  *********************************************************************************************************************/
-void GPIOPortF_Handler(void)
+
+void GPIOPortB_Handler(void)
 {
-	Nokia5110_ClearBuffer();
+	//Nokia5110_ClearBuffer();
 	// Nokia5110_DisplayBuffer(); // draw buffer
 
 	if (Move_Right_Button.GPIOx->GPIORIS & (1 << Move_Right_Button.ChannelId))
@@ -57,27 +56,22 @@ void GPIOPortF_Handler(void)
 		// move_right();
 		move_right_flag = 1;
 	}
-	else if (Move_Left_Button.GPIOx->GPIORIS & (1 << Move_Left_Button.ChannelId))
-	{ // s3 pressed
-		SET_BIT_PERIPH_BAND(Move_Left_Button.GPIOx->GPIOICR, Move_Left_Button.ChannelId);
-		move_left_flag = 1;
-	}
 }
 
 void GPIOPortD_Handler(void)
 {
-	Nokia5110_ClearBuffer();
-	Nokia5110_DisplayBuffer(); // draw buffer
+//	Nokia5110_ClearBuffer();
+//	Nokia5110_DisplayBuffer(); // draw buffer
 
-	if (Move_Right_Button.GPIOx->GPIORIS & (1 << Move_Right_Button.ChannelId))
-	{ // s1 pressed
-		SET_BIT_PERIPH_BAND(Move_Right_Button.GPIOx->GPIOICR, Move_Right_Button.ChannelId);
-		// move_right();
-		// move_RightFlage = True;
-	}
-	else if (Move_Left_Button.GPIOx->GPIORIS & (1 << Move_Left_Button.ChannelId))
+	if (Move_Left_Button.GPIOx->GPIORIS & (1 << Move_Left_Button.ChannelId))
 	{ // s3 pressed
 		SET_BIT_PERIPH_BAND(Move_Left_Button.GPIOx->GPIOICR, Move_Left_Button.ChannelId);
+		move_left_flag = 1;
+	}else if (Action_Button.GPIOx->GPIORIS & (1 << Action_Button.ChannelId))
+	{ // s1 pressed
+		SET_BIT_PERIPH_BAND(Action_Button.GPIOx->GPIOICR, Action_Button.ChannelId);
+		// move_right();
+		action_flag = 1;
 	}
 }
 /******************************************************************************

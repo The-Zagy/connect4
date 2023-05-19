@@ -3,37 +3,32 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
-C:\Users\Azzam\projects\connect4\connect4\SpaceInvaders.uvproj
+D:\collage\connect4\SpaceInvaders.uvproj
 Project File Date:  05/15/2023
 
 <h2>Output:</h2>
-Rebuild target 'SpaceInvaders'
-assembling startup.s...
-compiling Nokia5110.c...
-assembling random.s...
-compiling TExaS.c...
-compiling main.c...
-APP\main.c(20): warning:  #188-D: enumerated type mixed with another type
-    select_mode(1);
-APP\main.c(28): warning:  #188-D: enumerated type mixed with another type
-        game_mode = (game_mode + 1) % 2;
-APP\main.c(56): warning:  #188-D: enumerated type mixed with another type
-        cur_col = (cur_col + 1) % 7;
-APP\main.c: 3 warnings, 0 errors
+Build target 'SpaceInvaders'
 compiling connect4.c...
-HAL\src\connect4.c(66): warning:  #1295-D: Deprecated declaration endScreen - give arg types
-  void endScreen();
-HAL\src\connect4.c(1137): warning:  #188-D: enumerated type mixed with another type
-      draw_board_with_indicator(board, current_col, 1);
-HAL\src\connect4.c(1151): warning:  #188-D: enumerated type mixed with another type
-      draw_board_with_indicator(board, current_col, 1);
-HAL\src\connect4.c(1188): warning:  #167-D: argument of type "const unsigned char *" is incompatible with parameter of type "const char *"
-    Nokia5110_DrawFullImage(logo);
-HAL\src\connect4.c(1225): warning:  #186-D: pointless comparison of unsigned integer with zero
+HAL\src\connect4.c(1223): warning:  #186-D: pointless comparison of unsigned integer with zero
     if (col_num >= COLS_NUM || col_num < 0 || row_num >= ROWS_NUM || row_num < 0)
-HAL\src\connect4.c(1248): warning:  #111-D: statement is unreachable
+HAL\src\connect4.c(1246): warning:  #111-D: statement is unreachable
     return FALSE_t;
-HAL\src\connect4.c: 6 warnings, 0 errors
+HAL\src\connect4.c: 2 warnings, 0 errors
+linking...
+Program Size: Code=5896 RO-data=2508 RW-data=212 ZI-data=1684  
+".\SpaceInvaders.axf" - 0 Error(s), 2 Warning(s).
+ame_mode = (game_mode + 1) % 2;
+APP\main.c(65): warning:  #188-D: enumerated type mixed with another type
+        cur_col = (cur_col + 1) % 7;
+APP\main.c(74): warning:  #188-D: enumerated type mixed with another type
+                        if(cur_col<0) cur_col=6;
+APP\main.c: 5 warnings, 0 errors
+compiling connect4.c...
+HAL\src\connect4.c(1223): warning:  #186-D: pointless comparison of unsigned integer with zero
+    if (col_num >= COLS_NUM || col_num < 0 || row_num >= ROWS_NUM || row_num < 0)
+HAL\src\connect4.c(1246): warning:  #111-D: statement is unreachable
+    return FALSE_t;
+HAL\src\connect4.c: 2 warnings, 0 errors
 compiling connect4_Lcfg.c...
 compiling ISRs.c...
 compiling Dio.c...
@@ -62,13 +57,46 @@ LIBRARIES\CpuDriver\src\cpu_driver.c(61): warning:  #1267-D: Implicit physical r
         );
 LIBRARIES\CpuDriver\src\cpu_driver.c: 1 warning, 0 errors
 linking...
-Program Size: Code=5628 RO-data=2508 RW-data=204 ZI-data=1684  
-".\SpaceInvaders.axf" - 0 Error(s), 17 Warning(s).
- warning, 0 errors
-".\SpaceInvaders.axf" - 1 Error(s), 17 Warning(s).
+Program Size: Code=5888 RO-data=2508 RW-data=212 ZI-data=1684  
+".\SpaceInvaders.axf" - 0 Error(s), 15 Warning(s).
+RW-data=212 ZI-data=1684  
+".\SpaceInvaders.axf" - 0 Error(s), 15 Warning(s).
+rn FALSE_t;
+HAL\src\connect4.c: 7 warnings, 9 errors
+compiling connect4_Lcfg.c...
+compiling ISRs.c...
+.\HAL\inc\connect4.h(130): warning:  #1295-D: Deprecated declaration endScreen - give arg types
+  void endScreen();
+HAL\src\ISRs.c: 1 warning, 0 errors
+compiling Dio.c...
+MCAL\DIO\Src\Dio.c(62): warning:  #188-D: enumerated type mixed with another type
+                                return GET_BIT(((GPIOA->GPIODATA) + (1 << (2 + ChannelId) )),ChannelId);
+MCAL\DIO\Src\Dio.c(64): warning:  #188-D: enumerated type mixed with another type
+                                return GET_BIT(((GPIOB->GPIODATA) + (1 << (2 + ChannelId) )),ChannelId);
+MCAL\DIO\Src\Dio.c(66): warning:  #188-D: enumerated type mixed with another type
+                                return GET_BIT(((GPIOC->GPIODATA) + (1 << (2 + ChannelId) )),ChannelId);
+MCAL\DIO\Src\Dio.c(68): warning:  #188-D: enumerated type mixed with another type
+                                return GET_BIT(((GPIOD->GPIODATA) + (1 << (2 + ChannelId) )),ChannelId);
+MCAL\DIO\Src\Dio.c(70): warning:  #188-D: enumerated type mixed with another type
+                                return GET_BIT(((GPIOE->GPIODATA) + (1 << (2 + ChannelId) )),ChannelId);
+MCAL\DIO\Src\Dio.c(72): warning:  #188-D: enumerated type mixed with another type
+                                return GET_BIT(((GPIOF->GPIODATA) + (1 << (2 + ChannelId) )),ChannelId);
+MCAL\DIO\Src\Dio.c(76): warning:  #188-D: enumerated type mixed with another type
+        return 0;
+MCAL\DIO\Src\Dio.c: 7 warnings, 0 errors
+compiling IntCtrl.c...
+compiling IntCtrl_Lcfg.c...
+compiling Port.c...
+compiling Port_Lcfg.c...
+compiling Systick.c...
+compiling cpu_driver.c...
+LIBRARIES\CpuDriver\src\cpu_driver.c(61): warning:  #1267-D: Implicit physical register R0 should be defined as a variable
+        );
+LIBRARIES\CpuDriver\src\cpu_driver.c: 1 warning, 0 errors
+".\SpaceInvaders.axf" - 9 Error(s), 22 Warning(s).
 Target not created
- Error(s), 18 Warning(s).
-18 Warning(s).
-aceInvaders.axf" - 0 Error(s), 18 Warning(s).
-208 ZI-data=1680  
-".\SpaceInvaders.axf" - 0 Error(s), 19 Warning(s).
+ver\src\cpu_driver.c(61): warning:  #1267-D: Implicit physical register R0 should be defined as a variable
+        );
+LIBRARIES\CpuDriver\src\cpu_driver.c: 1 warning, 0 errors
+".\SpaceInvaders.axf" - 11 Error(s), 23 Warning(s).
+Target not created
