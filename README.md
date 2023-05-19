@@ -1,5 +1,5 @@
 # Connect 4
-*Connect 4
+* Connect 4
 
 Introduction:
 Connect 4 is a classic two-player board game where the objective is to be the first player to form a line of four tokens in a row, column, or diagonal on a grid. The game is played on a 7x6 grid, and each player takes turns dropping their colored tokens into one of the columns. The game ends when one player successfully connects four tokens or when the grid is full and no more moves can be made.
