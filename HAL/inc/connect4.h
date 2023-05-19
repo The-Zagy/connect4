@@ -7,12 +7,8 @@
 #define COLS_NUM 7
 #define CELL_WIDTH 12
 #define CELL_HEIGHT 6
-#define PLAYERW ((unsigned char)PlayerShip0[18])
-#define PLAYERH ((unsigned char)PlayerShip0[22])
 #define SCREEN_WIDTH 84
 #define SCREEN_HEIGHT 48
-#define PLAYER_WIDTH 18
-#define PLAYER_HEIGHT 8
 
 extern Port_ConfigType Move_Right_Button;
 extern Port_ConfigType Move_Left_Button;
@@ -30,11 +26,6 @@ extern IntCtr_Config Int_Right_Button;
 extern IntCtr_Config Int_Left_Button;
 extern IntCtr_Config Int_Action_Button;
 // Define a struct to store player position
-typedef struct
-{
-  int x;
-  int y;
-} Player;
 typedef enum Boolean
 {
   FALSE_t,
@@ -84,10 +75,6 @@ typedef struct Game_data
   game_state_t game_state;
   game_mode_t game_mode;
 } game_data_t;
-
-extern Player player;
-
-extern const unsigned char PlayerShip0[];
 
 bool_t insert_token(position_state_t board[ROWS_NUM][COLS_NUM], position_state_t state, enum Cols_name col_num, unsigned row_num);
 bool_t check_for_winner(position_state_t board[ROWS_NUM][COLS_NUM], position_state_t piece);

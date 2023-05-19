@@ -7,8 +7,9 @@ extern int move_right_flag;
 extern int move_left_flag;
 int main(void)
 {
+  int i, j;
   game_state_t game_state = GAME_SELECT_MODE;
-  game_mode_t game_mode = MULTI_PLAYER;
+  game_mode_t game_mode = SINGLE_PLAYER;
   cols_name_t cur_col = A;
   position_state_t board[ROWS_NUM][COLS_NUM] = {EMPTY};
   position_state_t slot;
@@ -102,6 +103,15 @@ int main(void)
         Nokia5110_ClearBuffer();
         Nokia5110_Clear();
         select_mode(game_mode);
+        for (i = 0; i < ROWS_NUM; ++i)
+        {
+          for (j = 0; j < COLS_NUM; ++j)
+          {
+            board[i][j] = EMPTY;
+          }
+        }
+        game_mode = SINGLE_PLAYER;
+        cur_col = A;
       }
       // switch turns at the end of each run
       else if (game_state == GAME_PLAYER1_TURN)

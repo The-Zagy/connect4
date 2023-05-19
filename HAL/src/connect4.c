@@ -28,14 +28,6 @@
 #include <stdlib.h>
 #define ROWS_NUM 6
 #define COLS_NUM 7
-#define AC_WHITE "\x1b[37m"
-#define AC_RED "\x1b[31m"
-#define AC_GREEN "\x1b[32m"
-#define AC_YELLOW "\x1b[33m"
-
-// Define the push button inputs
-#define MOVE_LEFT_BUTTON_PIN 4
-#define MOVE_RIGHT_BUTTON_PIN 0
 
 // Define a global variable to hold the current column name
 enum Cols_name current_col = C;
@@ -2181,37 +2173,6 @@ void draw_board_with_indicator(position_state_t board[ROWS_NUM][COLS_NUM], enum 
   draw_arrow_indicator(current_col);
 }
 
-//// Interrupt handler for PORTF
-// void PortF_Handler(void)
-//{
-//   // Check if the move left button was pressed
-//   if (GPIO_PORTF_RIS_R & (1 << MOVE_LEFT_BUTTON_PIN))
-//   {
-//     // Clear the interrupt flag
-//     GPIO_PORTF_ICR_R |= (1 << MOVE_LEFT_BUTTON_PIN);
-
-//    // Update the current column name
-//    if (current_col > A)
-//    {
-//      current_col--;
-//    }
-//    draw_board_with_indicator(board, current_col, 1);
-//  }
-
-//  // Check if the move right button was pressed
-//  if (GPIO_PORTF_RIS_R & (1 << MOVE_RIGHT_BUTTON_PIN))
-//  {
-//    // Clear the interrupt flag
-//    GPIO_PORTF_ICR_R |= (1 << MOVE_RIGHT_BUTTON_PIN);
-
-//    // Update the current column name
-//    if (current_col < G)
-//    {
-//      current_col++;
-//    }
-//    draw_board_with_indicator(board, current_col, 1);
-//  }
-//}
 void Timer2_Init(unsigned long period)
 {
   unsigned long volatile delay;
