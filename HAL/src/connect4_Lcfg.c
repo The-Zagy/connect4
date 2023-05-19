@@ -37,7 +37,21 @@ Port_ConfigType Move_Right_Button =
 		R4R
 
 };
-	GPIO_EXTI_ConfigType EXTI_Right_Button =
+
+// uncomment for dev
+// Port_ConfigType Move_Right_Button =
+// 	{
+// 		GPIOF,
+// 		PORTF,
+// 		PF0,
+// 		DIGITAL_PIN,
+// 		HIGH,
+// 		INPUT,
+// 		PULL_UP,
+// 		R4R
+// };
+
+GPIO_EXTI_ConfigType EXTI_Right_Button =
 	{
 		GPIOB,
 		PB0,
@@ -45,7 +59,18 @@ Port_ConfigType Move_Right_Button =
 		EDGE_CONTROLLED,
 		FALLING_LOW,
 		GPIO_PortB_IRQn};
-Port_ConfigType Action_Button  =
+
+// uncomment for dev
+// GPIO_EXTI_ConfigType EXTI_Right_Button =
+// 	{
+// 		GPIOF,
+// 		PF0,
+// 		EDGE_SENSITIVE,
+// 		EDGE_CONTROLLED,
+// 		FALLING_LOW,
+// 		GPIO_PortF_IRQn};
+
+Port_ConfigType Action_Button =
 	{
 		GPIOD,
 		PORTD,
@@ -54,10 +79,22 @@ Port_ConfigType Action_Button  =
 		HIGH,
 		INPUT,
 		PULL_UP,
-		R4R
+		R4R};
 
-};
-	GPIO_EXTI_ConfigType EXTI_Action_Button  =
+// uncomment for dev
+// Port_ConfigType Action_Button =
+// 	{
+// 		GPIOF,
+// 		PORTF,
+// 		PF4,
+// 		DIGITAL_PIN,
+// 		HIGH,
+// 		INPUT,
+// 		PULL_UP,
+// 		R4R
+// };
+
+GPIO_EXTI_ConfigType EXTI_Action_Button =
 	{
 		GPIOD,
 		PD1,
@@ -66,7 +103,17 @@ Port_ConfigType Action_Button  =
 		FALLING_LOW,
 		GPIO_PortD_IRQn};
 
-Port_ConfigType Move_Left_Button=
+// uncomment for dev
+// GPIO_EXTI_ConfigType EXTI_Action_Button =
+// 	{
+// 		GPIOF,
+// 		PF4,
+// 		EDGE_SENSITIVE,
+// 		EDGE_CONTROLLED,
+// 		FALLING_LOW,
+// 		GPIO_PortF_IRQn};
+
+Port_ConfigType Move_Left_Button =
 	{
 		GPIOD,
 		PORTD,

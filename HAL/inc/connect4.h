@@ -59,6 +59,9 @@ typedef enum Game_state
   GAME_PLAYER2_TURN,
   GAME_AI_TURN,
   GAME_START,
+  GAME_PLAYER1_WON,
+  GAME_PLAYER2_WON,
+  GAME_END_TIE,
   GAME_FINISHED
 } game_state_t;
 
@@ -67,7 +70,6 @@ typedef enum Position_state
   EMPTY,
   PLAYER1_SLOT,
   PLAYER2_SLOT,
-  AI_SLOT
 } position_state_t;
 
 typedef enum Game_mode
@@ -95,23 +97,10 @@ void draw_arrow_indicator(enum Cols_name current_col);
 void draw_board_with_indicator(position_state_t board[ROWS_NUM][COLS_NUM], enum Cols_name current_col, enum Game_state game_state);
 
 void Delay100ms(unsigned long count);
-void UARTB_init(void);
-void UARTB_OutChar(char data);
 void select_mode(game_mode_t mode);
 void starting_screen(void);
-void PortF_Init(void);
-void srand(unsigned int seed);
-void endScreen(void);
+void endScreen(game_state_t state);
 void game_Init(void);
 void Timer2_Init(unsigned long period);
+int ai_player(position_state_t board[ROWS_NUM][COLS_NUM]);
 #endif
-
-
-// done.h
-
-#ifndef DONE_H
-#define DONE_H
-
-extern int done;
-
-#endif // DONE_H

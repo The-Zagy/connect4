@@ -32,7 +32,6 @@
  *  GLOBAL DATA
  *********************************************************************************************************************/
 
-
 /**********************************************************************************************************************
  *  LOCAL FUNCTION PROTOTYPES
  *********************************************************************************************************************/
@@ -47,9 +46,6 @@
 
 void GPIOPortB_Handler(void)
 {
-	//Nokia5110_ClearBuffer();
-	// Nokia5110_DisplayBuffer(); // draw buffer
-
 	if (Move_Right_Button.GPIOx->GPIORIS & (1 << Move_Right_Button.ChannelId))
 	{ // s1 pressed
 		SET_BIT_PERIPH_BAND(Move_Right_Button.GPIOx->GPIOICR, Move_Right_Button.ChannelId);
@@ -60,20 +56,33 @@ void GPIOPortB_Handler(void)
 
 void GPIOPortD_Handler(void)
 {
-//	Nokia5110_ClearBuffer();
-//	Nokia5110_DisplayBuffer(); // draw buffer
 
 	if (Move_Left_Button.GPIOx->GPIORIS & (1 << Move_Left_Button.ChannelId))
-	{ // s3 pressed
+	{
 		SET_BIT_PERIPH_BAND(Move_Left_Button.GPIOx->GPIOICR, Move_Left_Button.ChannelId);
 		move_left_flag = 1;
-	}else if (Action_Button.GPIOx->GPIORIS & (1 << Action_Button.ChannelId))
-	{ // s1 pressed
+	}
+	else if (Action_Button.GPIOx->GPIORIS & (1 << Action_Button.ChannelId))
+	{
 		SET_BIT_PERIPH_BAND(Action_Button.GPIOx->GPIOICR, Action_Button.ChannelId);
-		// move_right();
 		action_flag = 1;
 	}
 }
+
+// uncomment for dev
+// void GPIOPortF_Handler(void)
+// {
+
+// 	if (Move_Right_Button.GPIOx->GPIORIS & (1 << Move_Right_Button.ChannelId))
+// 	{ // s3 pressed
+// 		SET_BIT_PERIPH_BAND(Move_Right_Button.GPIOx->GPIOICR, Move_Right_Button.ChannelId);
+// 		move_right_flag = 1;
+// 	}else if (Action_Button.GPIOx->GPIORIS & (1 << Action_Button.ChannelId))
+// 	{ // s1 pressed
+// 		SET_BIT_PERIPH_BAND(Action_Button.GPIOx->GPIOICR, Action_Button.ChannelId);
+// 		action_flag = 1;
+// 	}
+// }
 /******************************************************************************
  * \Syntax          : Std_ReturnType FunctionName(AnyType parameterName)
  * \Description     : Describe this service

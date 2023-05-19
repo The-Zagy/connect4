@@ -68,7 +68,6 @@ unsigned int seed = 25;
 
 int r = 0, rr = 0, uturn = 0, i;
 int turn = 0;
-//extern int done = 0;
 int col = 0, row = 0;
 int valid_moves[7];
 int num_valid_moves = 0;
@@ -2149,9 +2148,6 @@ const unsigned char logo1[] = {
 
 };
 
-// Set up the player at the bottom center of the screen
-
-Player player = {SCREEN_WIDTH / 2 - PLAYER_WIDTH / 2, SCREEN_HEIGHT - PLAYER_HEIGHT - 2};
 /**********************************************************************************************************************
  *  LOCAL FUNCTION PROTOTYPES
  *********************************************************************************************************************/
@@ -2164,37 +2160,6 @@ Player player = {SCREEN_WIDTH / 2 - PLAYER_WIDTH / 2, SCREEN_HEIGHT - PLAYER_HEI
  *  GLOBAL FUNCTIONS
  *********************************************************************************************************************/
 
-// Initialize the GPIO module PORTF and interrupt module
-void init_GPIO_interrupt(void)
-{
-  // Enable PORTF
-  SYSCTL_RCGCGPIO_R |= SYSCTL_RCGCGPIO_R5;
-
-  // Enable the Move Left and Move Right buttons
-  GPIO_PORTF_DIR_R &= ~(1 << MOVE_LEFT_BUTTON_PIN);
-  GPIO_PORTF_DIR_R &= ~(1 << MOVE_RIGHT_BUTTON_PIN);
-  GPIO_PORTF_DEN_R |= (1 << MOVE_LEFT_BUTTON_PIN);
-  GPIO_PORTF_DEN_R |= (1 << MOVE_RIGHT_BUTTON_PIN);
-
-  // Enable internal pull-up resistors for the buttons
-  GPIO_PORTF_PUR_R |= (1 << MOVE_LEFT_BUTTON_PIN);
-  GPIO_PORTF_PUR_R |= (1 << MOVE_RIGHT_BUTTON_PIN);
-
-  // Configure the buttons to trigger interrupts on the falling edge
-  GPIO_PORTF_IS_R &= ~(1 << MOVE_LEFT_BUTTON_PIN);
-  GPIO_PORTF_IS_R &= ~(1 << MOVE_RIGHT_BUTTON_PIN);
-  GPIO_PORTF_IBE_R &= ~(1 << MOVE_LEFT_BUTTON_PIN);
-  GPIO_PORTF_IBE_R &= ~(1 << MOVE_RIGHT_BUTTON_PIN);
-  GPIO_PORTF_IEV_R &= ~(1 << MOVE_LEFT_BUTTON_PIN);
-  GPIO_PORTF_IEV_R &= ~(1 << MOVE_RIGHT_BUTTON_PIN);
-  GPIO_PORTF_ICR_R |= (1 << MOVE_LEFT_BUTTON_PIN);
-  GPIO_PORTF_ICR_R |= (1 << MOVE_RIGHT_BUTTON_PIN);
-  GPIO_PORTF_IM_R |= (1 << MOVE_LEFT_BUTTON_PIN);
-  GPIO_PORTF_IM_R |= (1 << MOVE_RIGHT_BUTTON_PIN);
-
-  // Enable the interrupt for PORTF
-  NVIC_EN0_R |= (1 << (INT_GPIOF - 16));
-}
 // Draw the arrow indicator for the current column
 void draw_arrow_indicator(enum Cols_name current_col)
 {
@@ -2419,7 +2384,6 @@ bool_t check_for_winner(position_state_t board[ROWS_NUM][COLS_NUM], position_sta
     {
       if (board[r][c] == piece && board[r][c + 1] == piece && board[r][c + 2] == piece && board[r][c + 3] == piece)
       {
-				done=1;
         return TRUE_t;
       }
     }
@@ -2432,7 +2396,6 @@ bool_t check_for_winner(position_state_t board[ROWS_NUM][COLS_NUM], position_sta
     {
       if (board[r][c] == piece && board[r + 1][c] == piece && board[r + 2][c] == piece && board[r + 3][c] == piece)
       {
-				done=1;
         return TRUE_t;
       }
     }
@@ -2445,7 +2408,6 @@ bool_t check_for_winner(position_state_t board[ROWS_NUM][COLS_NUM], position_sta
     {
       if (board[r][c] == piece && board[r + 1][c + 1] == piece && board[r + 2][c + 2] == piece && board[r + 3][c + 3] == piece)
       {
-				done=1;
         return TRUE_t;
       }
     }
@@ -2458,7 +2420,6 @@ bool_t check_for_winner(position_state_t board[ROWS_NUM][COLS_NUM], position_sta
     {
       if (board[r][c] == piece && board[r - 1][c + 1] == piece && board[r - 2][c + 2] == piece && board[r - 3][c + 3] == piece)
       {
-				done=1;
         return TRUE_t;
       }
     }
@@ -2518,73 +2479,31 @@ void Delay100ms(unsigned long count)
   }
 }
 
-void UARTB_init()
+void endScreen(game_state_t state)
 {
-
-  SYSCTL_RCGCUART_R |= (1 << 1);
-  GPIO_PORTB_AFSEL_R |= 0x03;
-  GPIO_PORTB_DEN_R |= 0x03;
-  GPIO_PORTB_PCTL_R |= 0x11;
-  UART1_CTL_R &= ~(1 << 0);
-  UART1_IBRD_R = 8;
-  UART1_FBRD_R = 44;
-  // IBRD = int(16,000,000 / (16 * 115200)) = int(8.6805)
-  // FBRD = int(0.6805 * 64 + 0.5) = 44
-  UART1_LCRH_R = (3 << 5);
-  UART1_CC_R = 0;
-  UART1_CTL_R |= (1 << 0) | (1 << 8) | (1 << 9);
-}
-
-void UARTB_OutChar(char data)
-{
-  // as part of Lab 11, modify this program to use UART0 instead of UART1
-  while ((UART1_FR_R & (1 << 5)) != 0)
-    ;
-  UART1_DR_R = data;
-}
-
-void PortF_Init(void)
-{
-  volatile unsigned long delay;
-  SYSCTL_RCGC2_R |= 0x00000020 | 0x00000002; // 1) B & F clock
-  delay = SYSCTL_RCGC2_R;                    // delay
-  GPIO_PORTF_LOCK_R = 0x4C4F434B;            // 2) unlock PortF PF0
-  GPIO_PORTF_CR_R = 0x1F;                    // allow changes to PF4-0
-  GPIO_PORTF_AMSEL_R = 0x00;                 // 3) disable analog function
-  GPIO_PORTF_PCTL_R = 0x00000000;            // 4) GPIO clear bit PCTL
-  GPIO_PORTF_DIR_R = 0x0E;                   // 5) PF4,PF0 input, PF3,PF2,PF1 output
-  GPIO_PORTF_AFSEL_R = 0x00;                 // 6) no alternate function
-  GPIO_PORTF_PUR_R = 0x11;                   // enable pullup resistors on PF4,PF0
-  GPIO_PORTF_DEN_R = 0x1F;                   // 7) enable digital pins PF4-PF0
-}
-
-void endScreen()
-{
-  Delay100ms(50);
-  if (turn == ROWS_NUM * COLS_NUM && !done)
+  Nokia5110_Clear();
+  if (state == GAME_END_TIE)
   {
+    Nokia5110_SetCursor(1, 1);
     Nokia5110_OutString("It's a tie!");
   }
-  else
+  if (state == GAME_PLAYER1_WON)
   {
-    turn--;
-    Nokia5110_Clear();
     Nokia5110_SetCursor(1, 1);
-    Nokia5110_OutString("Player");
-    Nokia5110_SetCursor(8, 1);
-    Nokia5110_OutString(turn % 2 == 0 ? "X" : "O");
-    Nokia5110_SetCursor(3, 2);
-    Nokia5110_OutString("wins!");
-    Delay100ms(15);
-    Nokia5110_SetCursor(1, 4);
-    Nokia5110_OutString("GAME OVER");
-    Delay100ms(5);
-    Nokia5110_SetCursor(1, 4);
-    Nokia5110_OutString("        ");
-    Delay100ms(5);
-    Nokia5110_SetCursor(1, 4);
-    Nokia5110_OutString("GAME OVER");
+    Nokia5110_OutString("Player 1 ");
+    Nokia5110_SetCursor(1, 2);
+    Nokia5110_OutString("Won!");
   }
+  if (state == GAME_PLAYER2_WON)
+  {
+    Nokia5110_SetCursor(1, 1);
+    Nokia5110_OutString("Player 2 ");
+    Nokia5110_SetCursor(1, 2);
+    Nokia5110_OutString("Won!");
+  }
+  Nokia5110_SetCursor(1, 4);
+  Nokia5110_OutString("GAME OVER");
+  Delay100ms(15);
 }
 /******************************************************************************
  * \Syntax          : Std_ReturnType FunctionName(AnyType parameterName)
