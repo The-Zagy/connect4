@@ -5,6 +5,7 @@
 
 extern int move_right_flag;
 extern int move_left_flag;
+extern int done = 0;
 int main(void)
 {
   game_state_t game_state = GAME_SELECT_MODE;
@@ -19,6 +20,7 @@ int main(void)
   Nokia5110_ClearBuffer();
 	Nokia5110_Clear();
   select_mode(1);
+ endScreen();
 
   while (game_state == GAME_SELECT_MODE)
   {
@@ -77,7 +79,7 @@ int main(void)
       if (check_for_winner(board, slot) == TRUE)
       {
         // todo print winner
-        game_state = GAME_FINISHED;
+        done=1;
         return 0;
       };
       if (game_state == GAME_PLAYER1_TURN )

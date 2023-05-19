@@ -67,7 +67,8 @@ unsigned long SW1, SW2; // input from PF4,PF0
 unsigned int seed = 25;
 
 int r = 0, rr = 0, uturn = 0, i;
-int turn = 0, done = 0;
+int turn = 0;
+//extern int done = 0;
 int col = 0, row = 0;
 int valid_moves[7];
 int num_valid_moves = 0;
@@ -2418,6 +2419,7 @@ bool_t check_for_winner(position_state_t board[ROWS_NUM][COLS_NUM], position_sta
     {
       if (board[r][c] == piece && board[r][c + 1] == piece && board[r][c + 2] == piece && board[r][c + 3] == piece)
       {
+				done=1;
         return TRUE_t;
       }
     }
@@ -2430,6 +2432,7 @@ bool_t check_for_winner(position_state_t board[ROWS_NUM][COLS_NUM], position_sta
     {
       if (board[r][c] == piece && board[r + 1][c] == piece && board[r + 2][c] == piece && board[r + 3][c] == piece)
       {
+				done=1;
         return TRUE_t;
       }
     }
@@ -2442,6 +2445,7 @@ bool_t check_for_winner(position_state_t board[ROWS_NUM][COLS_NUM], position_sta
     {
       if (board[r][c] == piece && board[r + 1][c + 1] == piece && board[r + 2][c + 2] == piece && board[r + 3][c + 3] == piece)
       {
+				done=1;
         return TRUE_t;
       }
     }
@@ -2454,6 +2458,7 @@ bool_t check_for_winner(position_state_t board[ROWS_NUM][COLS_NUM], position_sta
     {
       if (board[r][c] == piece && board[r - 1][c + 1] == piece && board[r - 2][c + 2] == piece && board[r - 3][c + 3] == piece)
       {
+				done=1;
         return TRUE_t;
       }
     }

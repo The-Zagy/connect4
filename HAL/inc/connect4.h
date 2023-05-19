@@ -105,3 +105,13 @@ void endScreen(void);
 void game_Init(void);
 void Timer2_Init(unsigned long period);
 #endif
+
+
+// done.h
+
+#ifndef DONE_H
+#define DONE_H
+
+extern int done;
+
+#endif // DONE_H
