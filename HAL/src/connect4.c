@@ -44,26 +44,14 @@ enum Cols_name current_col = C;
 position_state_t board[ROWS_NUM][COLS_NUM];
 int move_right_flag = 0;
 int move_left_flag = 0;
+int action_flag = 0;
+int timer_flag = 0;
 
 /**
  * insert new position state in certian column, and row number is managed by gravity [first empty row in this column], the row_num state from which row start searching for correct position in recursive
  * return TRUE if inserted successfully
  */
-bool_t insert_token(position_state_t board[ROWS_NUM][COLS_NUM], position_state_t state, enum Cols_name col_num, unsigned row_num);
-bool_t check_for_winner(position_state_t board[ROWS_NUM][COLS_NUM], position_state_t piece);
-void draw_board(position_state_t board[ROWS_NUM][COLS_NUM], enum Cols_name arrow_position, enum Game_state game_state);
-void init_GPIO_interrupt(void);
-void draw_arrow_indicator(enum Cols_name current_col);
-void draw_board_with_indicator(position_state_t board[ROWS_NUM][COLS_NUM], enum Cols_name current_col, enum Game_state game_state);
 
-void Delay100ms(unsigned long count);
-void UARTB_init(void);
-void UARTB_OutChar(char data);
-void select_mode(game_mode_t mode);
-void starting_screen(void);
-void PortF_Init(void);
-void srand(unsigned int seed);
-void endScreen();
 /**********************************************************************************************************************
  *  LOCAL MACROS CONSTANT\FUNCTION
  *********************************************************************************************************************/
@@ -1120,88 +1108,98 @@ void draw_board_with_indicator(position_state_t board[ROWS_NUM][COLS_NUM], enum 
   draw_arrow_indicator(current_col);
 }
 
-// Interrupt handler for PORTF
-void PortF_Handler(void)
+//// Interrupt handler for PORTF
+// void PortF_Handler(void)
+//{
+//   // Check if the move left button was pressed
+//   if (GPIO_PORTF_RIS_R & (1 << MOVE_LEFT_BUTTON_PIN))
+//   {
+//     // Clear the interrupt flag
+//     GPIO_PORTF_ICR_R |= (1 << MOVE_LEFT_BUTTON_PIN);
+
+//    // Update the current column name
+//    if (current_col > A)
+//    {
+//      current_col--;
+//    }
+//    draw_board_with_indicator(board, current_col, 1);
+//  }
+
+//  // Check if the move right button was pressed
+//  if (GPIO_PORTF_RIS_R & (1 << MOVE_RIGHT_BUTTON_PIN))
+//  {
+//    // Clear the interrupt flag
+//    GPIO_PORTF_ICR_R |= (1 << MOVE_RIGHT_BUTTON_PIN);
+
+//    // Update the current column name
+//    if (current_col < G)
+//    {
+//      current_col++;
+//    }
+//    draw_board_with_indicator(board, current_col, 1);
+//  }
+//}
+void Timer2_Init(unsigned long period)
 {
-  // Check if the move left button was pressed
-  if (GPIO_PORTF_RIS_R & (1 << MOVE_LEFT_BUTTON_PIN))
-  {
-    // Clear the interrupt flag
-    GPIO_PORTF_ICR_R |= (1 << MOVE_LEFT_BUTTON_PIN);
+  unsigned long volatile delay;
+  SYSCTL_RCGCTIMER_R |= 0x04; // 0) activate timer2
+  delay = SYSCTL_RCGCTIMER_R;
+  timer_flag = 0;
+  TIMER2_CTL_R = 0x00000000;                             // 1) disable timer2A during setup
+  TIMER2_CFG_R = 0x00000000;                             // 2) configure for 32-bit mode
+  TIMER2_TAMR_R = 0x00000002;                            // 3) configure for periodic mode, default down-count settings
+  TIMER2_TAILR_R = period - 1;                           // 4) reload value
+  TIMER2_TAPR_R = 0;                                     // 5) bus clock resolution
+  TIMER2_ICR_R = 0x00000001;                             // 6) clear timer2A timeout flag
+  TIMER2_IMR_R = 0x00000001;                             // 7) arm timeout interrupt
+  NVIC_PRI5_R = (NVIC_PRI5_R & 0x00FFFFFF) | 0x80000000; // 8) priority 4
+                                                         // interrupts enabled in the main program after all devices initialized
+                                                         // vector number 39, interrupt number
+  NVIC_EN0_R = 1 << 23;                                  // 9) enable IRQ 23 in NVIC
+  TIMER2_CTL_R = 0x00000001;                             // 10) enable timer2A
+}
 
-    // Update the current column name
-    if (current_col > A)
-    {
-      current_col--;
-    }
-    draw_board_with_indicator(board, current_col, 1);
-  }
+void Timer2A_Handler(void)
+{
+  TIMER2_ICR_R = 0x00000001; // acknowledge timer2A timeout
+  timer_flag += 1;
+}
 
-  // Check if the move right button was pressed
-  if (GPIO_PORTF_RIS_R & (1 << MOVE_RIGHT_BUTTON_PIN))
-  {
-    // Clear the interrupt flag
-    GPIO_PORTF_ICR_R |= (1 << MOVE_RIGHT_BUTTON_PIN);
-
-    // Update the current column name
-    if (current_col < G)
-    {
-      current_col++;
-    }
-    draw_board_with_indicator(board, current_col, 1);
-  }
+void stop_timer(void)
+{
+  TIMER2_CTL_R = 0x00000000; // 1) disable timer2A during setup
 }
 
 void game_Init(void)
 {
+  Timer2_Init(80000000);
   // int mode;
   Port_Init(&Move_Right_Button);
   Port_Init(&Move_Left_Button);
-  // Port_Init(&Action_Button);
+  Port_Init(&Action_Button);
 
   Port_EXTI_Init(&EXTI_Right_Button);
   Port_EXTI_Init(&EXTI_Left_Button);
-  // Port_EXTI_Init(&EXTI_Action_Button);
+  Port_EXTI_Init(&EXTI_Action_Button);
 
   IntCrtl_Init(&Int_Right_Button);
   IntCrtl_Init(&Int_Left_Button);
-  // IntCrtl_Init(&Int_Action_Button);
-  // startingScreen();
-  // mode = select_mode();
-  // srand(seed);
+  IntCrtl_Init(&Int_Action_Button);
   Nokia5110_Clear();
-  // if (mode)
-  // {
-  //   r = (rand() % 9) + '0';
-  //   UARTB_OutChar(r);
-
-  //   IntCtrl_EnableIRQ(GPIO_PortF_IRQn);
-  // }
+  cpuDriver_EnableGlobalInterrupt();
 }
 
 void starting_screen(void)
 {
-  int w;
-  Random_Init(1); // if use random function
   // Nokia5110_SetCursor(0, 0);
   Nokia5110_ClearBuffer();
-  Nokia5110_DrawFullImage(logo);
+  //  Nokia5110_DrawFullImage(logo);
+  Nokia5110_SetCursor(0, 5);
+  Nokia5110_OutString("Welcome :D!");
   Nokia5110_DisplayBuffer();
-  Nokia5110_SetCursor(0, 5);
-  Nokia5110_OutString("Welcome :D!");
-  Delay100ms(7);
-  Nokia5110_SetCursor(0, 5);
-  Nokia5110_OutString("           ");
-  Delay100ms(7);
-  Nokia5110_SetCursor(0, 5);
-  Nokia5110_OutString("Welcome :D!");
-  Delay100ms(40);
-  for (w = 0; w < 7; w++)
-  {
-    Nokia5110_SetCursor(0, w);
-    Nokia5110_OutString("           ");
-    Delay100ms(5);
-  }
+  while (timer_flag != 1)
+    ;
+  stop_timer();
 }
 
 void select_mode(game_mode_t mode)
