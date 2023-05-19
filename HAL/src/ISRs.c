@@ -44,7 +44,7 @@
  *  GLOBAL FUNCTIONS
  *********************************************************************************************************************/
 
-void GPIOPortB_Handler(void)
+void GPIOPortF_Handler(void)
 {
 	if (Move_Right_Button.GPIOx->GPIORIS & (1 << Move_Right_Button.ChannelId))
 	{ // s1 pressed

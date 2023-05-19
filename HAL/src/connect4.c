@@ -2464,7 +2464,7 @@ void endScreen(game_state_t state)
   }
   Nokia5110_SetCursor(1, 4);
   Nokia5110_OutString("GAME OVER");
-  Delay100ms(15);
+  Delay100ms(200);
 }
 /******************************************************************************
  * \Syntax          : Std_ReturnType FunctionName(AnyType parameterName)

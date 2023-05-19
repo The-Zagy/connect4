@@ -27,9 +27,9 @@
  *********************************************************************************************************************/
 Port_ConfigType Move_Right_Button =
 	{
-		GPIOB,
-		PORTB,
-		PB0,
+		GPIOF,
+		PORTF,
+		PF1,
 		DIGITAL_PIN,
 		HIGH,
 		INPUT,
@@ -53,12 +53,12 @@ Port_ConfigType Move_Right_Button =
 
 GPIO_EXTI_ConfigType EXTI_Right_Button =
 	{
-		GPIOB,
-		PB0,
+		GPIOF,
+		PF1,
 		EDGE_SENSITIVE,
 		EDGE_CONTROLLED,
 		FALLING_LOW,
-		GPIO_PortB_IRQn};
+		GPIO_PortF_IRQn};
 
 // uncomment for dev
 // GPIO_EXTI_ConfigType EXTI_Right_Button =
