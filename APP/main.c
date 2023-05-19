@@ -77,7 +77,10 @@ int main(void)
     {
       move_left_flag = 0;
       cur_col = (cur_col - 1) % 7;
-      if(cur_col<0){cur_col=6;}
+      if (cur_col < 0)
+      {
+        cur_col = 6;
+      }
       Nokia5110_ClearBuffer();
       Nokia5110_Clear();
       draw_board(board, cur_col, game_state);
@@ -90,7 +93,8 @@ int main(void)
       {
         cur_col = ai_player(board);
       }
-      insert_token(board, slot, cur_col, 0);
+      if (insert_token(board, slot, cur_col, 0) == FALSE_t)
+        continue;
       Nokia5110_ClearBuffer();
       Nokia5110_Clear();
       draw_board(board, cur_col, game_state);
