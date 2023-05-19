@@ -76,7 +76,8 @@ int main(void)
     if (move_left_flag == 1)
     {
       move_left_flag = 0;
-      cur_col = (cur_col + 1) % 7;
+      cur_col = (cur_col - 1) % 7;
+      if(cur_col<0){cur_col=6;}
       Nokia5110_ClearBuffer();
       Nokia5110_Clear();
       draw_board(board, cur_col, game_state);
